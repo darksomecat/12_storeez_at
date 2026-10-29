@@ -42,14 +42,10 @@ public class TestBase {
         String browserVersion = System.getProperty("browserVersion");
         String headless = System.getProperty("headless");
 
-        Configuration.baseUrl = baseUrl != null ? baseUrl : "https://12storeez.com";
-        Configuration.pageLoadStrategy = "eager";
-        Configuration.timeout = 10000;
-
         if (remote != null) Configuration.remote = remote;
         if (browser != null) Configuration.browser = browser;
         if (browserSize != null) Configuration.browserSize = browserSize;
-//        if (baseUrl != null) Configuration.baseUrl = baseUrl;
+        if (baseUrl != null) Configuration.baseUrl = baseUrl;
         if (browserVersion != null) Configuration.browserVersion = browserVersion;
         if (headless != null) {
             Configuration.headless = Boolean.parseBoolean(headless);
