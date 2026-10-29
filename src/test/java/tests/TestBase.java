@@ -7,6 +7,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.openqa.selenium.MutableCapabilities;
+import org.openqa.selenium.PageLoadStrategy;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import tests.helpers.Attach;
@@ -42,6 +43,9 @@ public class TestBase {
         String browserVersion = System.getProperty("browserVersion");
         String headless = System.getProperty("headless");
 
+        Configuration.baseUrl = baseUrl != null ? baseUrl : "https://12storeez.com";
+        Configuration.pageLoadStrategy = "eager";
+
         if (remote != null) Configuration.remote = remote;
         if (browser != null) Configuration.browser = browser;
         if (browserSize != null) Configuration.browserSize = browserSize;
@@ -59,6 +63,7 @@ public class TestBase {
         System.out.println("headless: " + Configuration.headless);
 
         MutableCapabilities capabilities = new MutableCapabilities();
+        capabilities.setCapability("pageLoadStrategy", "eager");
         capabilities.setCapability("se:cdpEnabled", false);
         capabilities.setCapability("selenoid:options", Map.of(
                 "enableVNC", true,
@@ -68,10 +73,12 @@ public class TestBase {
 
         if ("chrome".equalsIgnoreCase(Configuration.browser)) {
             ChromeOptions chromeOptions = new ChromeOptions();
+            chromeOptions.setPageLoadStrategy(PageLoadStrategy.EAGER);
             chromeOptions.addArguments(List.of("--disable-dev-shm-usage", "--no-sandbox"));
             capabilities.merge(chromeOptions);
         } else if ("firefox".equalsIgnoreCase(Configuration.browser)) {
             FirefoxOptions firefoxOptions = new FirefoxOptions();
+            firefoxOptions.setPageLoadStrategy(PageLoadStrategy.EAGER);
             firefoxOptions.setCapability("webSocketUrl", false);
             capabilities.merge(firefoxOptions);
         }
