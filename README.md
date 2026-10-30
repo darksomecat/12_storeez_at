@@ -1,7 +1,5 @@
-<p align="center">
-  Проект по автоматизации тестирования сайта <br>
-  <b><a href="https://12storeez.com/">12STOREEZ</a></b>
-</p>
+<h1 align="center">Проект по автоматизации тестирования сайта</h1>
+<h2 align="center"><a href="https://12storeez.com">12STOREEZ</a></h2>
 
 <p align="center">
   <a href="https://12storeez.com/" title="12 STOREEZ — официальный сайт">
