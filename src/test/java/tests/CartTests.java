@@ -29,7 +29,7 @@ public class CartTests extends TestBase {
         step("Добавить товар в корзину", () ->
                 productPage.addToCart());
         step("Открыть корзину", () ->
-                mainPage.openCartFromHeader());
+                productPage.openCart());
         step("Проверить товар «" + testData.searchWord + "» в корзине", () ->
                 cartPage.checkProductPresent(testData.searchWord));
     }
@@ -48,7 +48,7 @@ public class CartTests extends TestBase {
                     .addToCart();
         });
         step("Открыть корзину", () ->
-                mainPage.openCartFromHeader());
+                productPage.openCart());
         step("Проверить товар «" + testData.searchWord + "» в корзине", () ->
                 cartPage.checkProductPresent(testData.searchWord));
         step("Удалить товар из корзины", () ->
