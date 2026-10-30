@@ -94,7 +94,7 @@ gradlew clean test
 
 ***Удалённый запуск через Jenkins:***
 ```bash  
-clean X5Group_test
+clean 
 "-Dbrowser=${browser}"
 "-DbrowserVersion=${browserVersion}"
 "-DbrowserSize=${browserSize}"
