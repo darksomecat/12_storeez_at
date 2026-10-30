@@ -55,6 +55,15 @@ public class ProductPage {
         return this;
     }
 
+    @Step("Перейти в корзину со страницы товара")
+    public ProductPage openCart() {
+        $$(".ProductButtons__button")
+                .findBy(text("Перейти в корзину"))
+                .shouldBe(visible)
+                .click();
+        return this;
+    }
+
     @Step("Добавить товар в вишлист")
     public ProductPage addToWishlist() {
         wishlistButton.shouldBe(visible).click();
