@@ -17,6 +17,8 @@ public class MainPage {
     private final SelenideElement searchInput = $(".HeaderSearch__field input.TextInput__input");
     private final SelenideElement wishlistHeaderIcon = $("a.header-icon[href='/profile/wishlist']");
     private final SelenideElement cartHeaderIcon = $("a.header-icon[href='/cart']");
+    private final SelenideElement popmechanicPopup = $(".popmechanic-content");
+    private final SelenideElement popmechanicClose = $(".popmechanic-close-text");
 
     @Step("Открыть главную страницу")
     public MainPage openPage() {
@@ -27,9 +29,11 @@ public class MainPage {
 
     @Step("Закрыть всплывающие окна на главной")
     private MainPage dismissPopups() {
-        SelenideElement noThanks = $(byText("Нет, спасибо"));
-        if (noThanks.exists() && noThanks.isDisplayed()) {
-            noThanks.click();
+        try {
+            if (popmechanicPopup.isDisplayed()) {
+                popmechanicClose.click();
+            }
+        } catch (Throwable ignored) {
         }
         return this;
     }
