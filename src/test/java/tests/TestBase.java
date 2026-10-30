@@ -68,7 +68,7 @@ public class TestBase {
         capabilities.setCapability("selenoid:options", Map.of(
                 "enableVNC", true,
                 "enableVideo", true,
-                "screenResolution", "1280x1920"
+                "screenResolution", "1920x1080"
         ));
 
         if ("chrome".equalsIgnoreCase(Configuration.browser)) {
