@@ -7,6 +7,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.openqa.selenium.MutableCapabilities;
+import org.openqa.selenium.PageLoadStrategy;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import tests.helpers.Attach;
@@ -44,12 +45,11 @@ public class TestBase {
 
         Configuration.baseUrl = baseUrl != null ? baseUrl : "https://12storeez.com";
         Configuration.pageLoadStrategy = "eager";
-        Configuration.timeout = 10000;
 
         if (remote != null) Configuration.remote = remote;
         if (browser != null) Configuration.browser = browser;
         if (browserSize != null) Configuration.browserSize = browserSize;
-//        if (baseUrl != null) Configuration.baseUrl = baseUrl;
+        if (baseUrl != null) Configuration.baseUrl = baseUrl;
         if (browserVersion != null) Configuration.browserVersion = browserVersion;
         if (headless != null) {
             Configuration.headless = Boolean.parseBoolean(headless);
@@ -63,19 +63,22 @@ public class TestBase {
         System.out.println("headless: " + Configuration.headless);
 
         MutableCapabilities capabilities = new MutableCapabilities();
+        capabilities.setCapability("pageLoadStrategy", "eager");
         capabilities.setCapability("se:cdpEnabled", false);
         capabilities.setCapability("selenoid:options", Map.of(
                 "enableVNC", true,
                 "enableVideo", true,
-                "screenResolution", "1080x1300"
+                "screenResolution", "1280x1920"
         ));
 
         if ("chrome".equalsIgnoreCase(Configuration.browser)) {
             ChromeOptions chromeOptions = new ChromeOptions();
+            chromeOptions.setPageLoadStrategy(PageLoadStrategy.EAGER);
             chromeOptions.addArguments(List.of("--disable-dev-shm-usage", "--no-sandbox"));
             capabilities.merge(chromeOptions);
         } else if ("firefox".equalsIgnoreCase(Configuration.browser)) {
             FirefoxOptions firefoxOptions = new FirefoxOptions();
+            firefoxOptions.setPageLoadStrategy(PageLoadStrategy.EAGER);
             firefoxOptions.setCapability("webSocketUrl", false);
             capabilities.merge(firefoxOptions);
         }

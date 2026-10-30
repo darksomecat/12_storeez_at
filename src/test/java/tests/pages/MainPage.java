@@ -31,10 +31,6 @@ public class MainPage {
         if (noThanks.exists() && noThanks.isDisplayed()) {
             noThanks.click();
         }
-        SelenideElement locationOk = $(byText("Да, верно"));
-        if (locationOk.exists() && locationOk.isDisplayed()) {
-            locationOk.click();
-        }
         return this;
     }
 
