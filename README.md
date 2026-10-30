@@ -1,4 +1,7 @@
-# Проект по автоматизации тестирования сайта [12 STOREEZ](https://12storeez.com/)
+<p align="center">
+  Проект по автоматизации тестирования сайта <br>
+  <b><a href="https://12storeez.com/">12STOREEZ</a></b>
+</p>
 
 <p align="center">
   <a href="https://12storeez.com/" title="12 STOREEZ — официальный сайт">
