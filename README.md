@@ -125,7 +125,7 @@ ____
 ____
 
 <a id="allure"></a>
-## <img alt="Allure Report" height="25" src="images/logo/Allure_Report.svg" width="25"/> <a href="https://jenkins.qa.guru/job/ukolovaA-12STOREEZ/allure/">Allure-отчёт</a>
+## <img alt="Allure Report" height="25" src="images/logo/Allure_Report.svg" width="25"/> <a href="https://jenkins.qa.guru/job/ukolovaA-12STOREEZ/8/allure/">Allure-отчёт</a>
 
 ### Overview
 
