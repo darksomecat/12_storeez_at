@@ -1,4 +1,4 @@
-package tests.pages;
+package pages;
 
 import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
@@ -33,10 +33,9 @@ public class CartPage {
     }
 
     @Step("Удалить товар из корзины")
-    public CartPage removeProduct() {
+    public CartPage removeProduct(String confirmText) {
         removeIcon.click();
-        SelenideElement confirm = $(byText("Удалить"));
-        confirm.shouldBe(visible).click();
+        $(byText(confirmText)).shouldBe(visible).click();
         emptyCart.shouldBe(visible);
         return this;
     }

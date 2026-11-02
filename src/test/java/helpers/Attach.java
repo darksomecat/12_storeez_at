@@ -1,4 +1,4 @@
-package tests.helpers;
+package helpers;
 
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Selenide;
@@ -18,7 +18,8 @@ public class Attach {
     public static byte[] screenshotAs(String attachName) {
         return ((TakesScreenshot) getWebDriver()).getScreenshotAs(OutputType.BYTES);
     }
-    @Attachment(value = "Page sourse", type = "text/plan") //"text/html" чтобы отображалась страница
+
+    @Attachment(value = "Page sourse", type = "text/plan")
     public static byte[] pageSource() {
         return getWebDriver().getPageSource().getBytes(StandardCharsets.UTF_8);
     }
@@ -27,7 +28,8 @@ public class Attach {
     public static String attachAsText(String attachName, String message) {
         return message;
     }
-    public static void browserConsoleLogs(){
+
+    public static void browserConsoleLogs() {
         if ("firefox".equalsIgnoreCase(Configuration.browser)) {
             return;
         }
@@ -37,6 +39,7 @@ public class Attach {
                 String.join("\n", Selenide.getWebDriverLogs("browser"))
         );
     }
+
     @Attachment(value = "Video", type = "text/html", fileExtension = ".html")
     public static String addVideo() {
         return "<html><body><video width='100%' height='100%' controls autoplay><source src='"

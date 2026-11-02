@@ -1,4 +1,4 @@
-package tests.pages;
+package pages;
 
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
@@ -20,7 +20,6 @@ public class ProductPage {
     private final SelenideElement wishlistLoginTitle = $(".WishlistLoginPopup__title");
     private final SelenideElement wishlistLoginText = $(".WishlistLoginPopup__text");
     private final SelenideElement wishlistLoginNext = $(".WishlistLoginPopup__controls a.WishlistLoginPopup__button");
-    private final SelenideElement wishlistLoginClose = $$(".WishlistLoginPopup__button").findBy(text("Закрыть"));
 
     @Step("Проверить, что страница товара открыта")
     public ProductPage checkOpened() {
@@ -36,29 +35,29 @@ public class ProductPage {
     }
 
     @Step("Выбрать первый доступный размер")
-    public ProductPage selectSize() {
+    public ProductPage selectSize(String excludeText) {
         sizeSelector.shouldBe(visible).click();
         sizeList.shouldBe(visible);
-        sizeItems.excludeWith(text("Подписка")).first().shouldBe(visible).click();
+        sizeItems.excludeWith(text(excludeText)).first().shouldBe(visible).click();
         return this;
     }
 
     @Step("Добавить товар в корзину")
-    public ProductPage addToCart() {
+    public ProductPage addToCart(String addButtonText, String goToCartButtonText) {
         $$(".ProductButtons__button")
-                .findBy(text("Добавить в корзину"))
+                .findBy(text(addButtonText))
                 .shouldBe(visible)
                 .click();
         $$(".ProductButtons__button")
-                .findBy(text("Перейти в корзину"))
+                .findBy(text(goToCartButtonText))
                 .shouldBe(visible);
         return this;
     }
 
     @Step("Перейти в корзину со страницы товара")
-    public ProductPage openCart() {
+    public ProductPage openCart(String goToCartButtonText) {
         $$(".ProductButtons__button")
-                .findBy(text("Перейти в корзину"))
+                .findBy(text(goToCartButtonText))
                 .shouldBe(visible)
                 .click();
         return this;
@@ -71,18 +70,20 @@ public class ProductPage {
     }
 
     @Step("Проверить попап логина вишлиста для неавторизованного пользователя")
-    public ProductPage checkWishlistLoginPopup() {
+    public ProductPage checkWishlistLoginPopup(String title, String text, String nextButton) {
         wishlistLoginPopup.shouldBe(visible);
-        wishlistLoginTitle.shouldHave(text("Вход и регистрация"));
-        wishlistLoginText.shouldHave(text("Войдите в аккаунт, чтобы смотреть свой вишлист на любом устройстве"));
+        wishlistLoginTitle.shouldHave(text(title));
+        wishlistLoginText.shouldHave(text(text));
         wishlistLoginNext.shouldBe(visible)
-                .shouldHave(text("Далее"));
+                .shouldHave(text(nextButton));
         return this;
     }
 
     @Step("Закрыть попап логина вишлиста")
-    public ProductPage closeWishlistLoginPopup() {
-        wishlistLoginClose.shouldBe(visible).click();
+    public ProductPage closeWishlistLoginPopup(String closeButtonText) {
+        $$(".WishlistLoginPopup__button").findBy(text(closeButtonText))
+                .shouldBe(visible)
+                .click();
         wishlistLoginPopup.shouldBe(hidden);
         return this;
     }

@@ -1,4 +1,4 @@
-package tests.pages;
+package pages;
 
 import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
@@ -23,13 +23,13 @@ public class AppsPage {
     }
 
     @Step("Проверить содержимое блока установки приложения")
-    public AppsPage checkInstallBlockContent() {
-        breadcrumbs.shouldHave(text("Приложение 12 STOREEZ"));
-        benefits.shouldHave(text("Ранний доступ к новинкам"));
-        benefits.shouldHave(text("Мгновенные уведомления о самом важном"));
-        benefits.shouldHave(text("Быстрая идентификация на кассе по QR-коду"));
+    public AppsPage checkInstallBlockContent(String breadcrumb, String qrHint, String... benefitTexts) {
+        breadcrumbs.shouldHave(text(breadcrumb));
+        for (String benefitText : benefitTexts) {
+            benefits.shouldHave(text(benefitText));
+        }
         qrBlock.shouldBe(visible)
-                .shouldHave(text("Наведите камеру телефона на QR"));
+                .shouldHave(text(qrHint));
         $(".AppsPage__qr-image").shouldBe(visible);
         return this;
     }

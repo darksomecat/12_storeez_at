@@ -1,4 +1,4 @@
-package tests.pages;
+package pages;
 
 import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
@@ -13,8 +13,8 @@ public class WishlistPage {
     private final SelenideElement pageTitle = $("body");
 
     @Step("Проверить, что вишлист содержит товар \"{namePart}\"")
-    public WishlistPage checkProductPresent(String namePart) {
-        pageTitle.shouldHave(text("Вишлист"));
+    public WishlistPage checkProductPresent(String pageTitleText, String namePart) {
+        pageTitle.shouldHave(text(pageTitleText));
         $$(".ProductCard__title, .ProductCard").findBy(text(namePart)).shouldBe(visible);
         return this;
     }

@@ -1,4 +1,4 @@
-package tests.pages;
+package pages;
 
 import com.codeborne.selenide.CollectionCondition;
 import com.codeborne.selenide.ElementsCollection;
@@ -31,8 +31,8 @@ public class SearchPage {
     }
 
     @Step("Проверить заголовок результата по запросу \"{query}\"")
-    public SearchPage checkResultHeadline(String query) {
-        searchResultTitle.shouldHave(text("Результат поиска по запросу"));
+    public SearchPage checkResultHeadline(String headline, String query) {
+        searchResultTitle.shouldHave(text(headline));
         searchResultTitle.shouldHave(text(query));
         return this;
     }
@@ -64,8 +64,8 @@ public class SearchPage {
     }
 
     @Step("Проверить результаты по подсказке \"{selectedSearchTap}\"")
-    public SearchPage checkResultsMatchSelectedTap() {
-        checkResultHeadline(selectedSearchTap);
+    public SearchPage checkResultsMatchSelectedTap(String headline, String selectedSearchTap) {
+        checkResultHeadline(headline, selectedSearchTap);
         checkProductCardsContain(selectedSearchTap);
         return this;
     }

@@ -116,19 +116,16 @@ clean
 ____
 
 <a id="jenkins"></a>
-## <img alt="Jenkins" height="25" src="images/logo/Jenkins.svg" width="25"/> Сборка в Jenkins
-
+## <img alt="Jenkins" height="25" src="images/logo/Jenkins.svg" width="25"/> <a href="https://jenkins.qa.guru/job/ukolovaA-12STOREEZ/">Сборка в Jenkins</a>
 
 <p align="center">
-  <a href="https://jenkins.qa.guru/view/java-students/job/ukolovaA-12STOREEZ/">
-    <img title="Jenkins — страница сборки проекта" src="images/screenshots/jenkins_build.png" alt="Jenkins build" width="950"/>
-  </a>
+  <img title="Jenkins — страница сборки проекта" src="images/screenshots/jenkins_build.png" alt="Jenkins build" width="950"/>
 </p>
 
 ____
 
 <a id="allure"></a>
-## <img alt="Allure Report" height="25" src="images/logo/Allure_Report.svg" width="25"/> Allure-отчёт
+## <img alt="Allure Report" height="25" src="images/logo/Allure_Report.svg" width="25"/> <a href="https://jenkins.qa.guru/job/ukolovaA-12STOREEZ/allure/">Allure-отчёт</a>
 
 ### Overview
 
@@ -145,7 +142,7 @@ ____
 ____
 
 <a id="allure-testops"></a>
-## <img alt="Allure ТестОпс" height="25" src="images/logo/AllureTestOps.svg" width="25"/> Интеграция с Allure ТестОпс
+## <img alt="Allure ТестОпс" height="25" src="images/logo/AllureTestOps.svg" width="25"/> <a href="https://allure.qa.guru/project/5401/dashboards/5700">Интеграция с Allure ТестОпс</a>
 
 Выполнена интеграция сборки Jenkins с **Allure ТестОпс**.  
 
@@ -164,7 +161,7 @@ ____
 ____
 
 <a id="jira"></a>
-## <img alt="Jira" height="25" src="images/logo/Jira.svg" width="25"/> Интеграция с Jira
+## <img alt="Jira" height="25" src="images/logo/Jira.svg" width="25"/> <a href="https://jira.qa.guru/browse/MUL-58">Интеграция с Jira</a>
 
 Реализована интеграция **Allure ТестОпс** с **Jira**: в тикете отображаются связанные тест-кейсы и результаты прогонов.
 

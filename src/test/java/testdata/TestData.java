@@ -1,0 +1,61 @@
+package testdata;
+
+import utils.SearchQueryGenerator;
+
+public class TestData {
+    public String searchWord = SearchQueryGenerator.randomSearchWord();
+    public String appsPageTitle = "Установите приложение 12 STOREEZ";
+    public String appsBreadcrumb = "Приложение 12 STOREEZ";
+    public String appsBenefitEarlyAccess = "Ранний доступ к новинкам";
+    public String appsBenefitNotifications = "Мгновенные уведомления о самом важном";
+    public String appsBenefitQr = "Быстрая идентификация на кассе по QR-коду";
+    public String appsQrHint = "Наведите камеру телефона на QR";
+    public String emptyCartText = "Ваша корзина пока пуста";
+    public String womenTab = "Женщинам";
+    public String menTab = "Мужчинам";
+    public String sizeExcludeText = "Подписка";
+    public String addToCartButton = "Добавить в корзину";
+    public String goToCartButton = "Перейти в корзину";
+    public String removeFromCartConfirm = "Удалить";
+    public String wishlistLoginTitle = "Вход и регистрация";
+    public String wishlistLoginText = "Войдите в аккаунт, чтобы смотреть свой вишлист на любом устройстве";
+    public String wishlistLoginNext = "Далее";
+    public String wishlistLoginClose = "Закрыть";
+    public String wishlistPageTitle = "Вишлист";
+    public String searchResultHeadline = "Результат поиска по запросу";
+    public String[] womenCollectionLinks = {
+            "Новинки",
+            "Гид по верхней одежде",
+            "Самое теплое",
+            "Одежда",
+            "Обувь",
+            "Сумки и аксессуары",
+            "Материалы 12 STOREEZ",
+            "Фактуры осени",
+            "Деловой гардероб",
+            "Капсула GI",
+            "Спортивная капсула",
+            "Бестселлеры",
+            "Летний гардероб",
+            "Вечерняя коллекция",
+            "Подарки",
+            "Смотреть все"
+    };
+    public String[] menCollectionLinks = {
+            "Новинки",
+            "Гид по верхней одежде",
+            "Самое теплое",
+            "Одежда",
+            "Обувь",
+            "Сумки и аксессуары",
+            "Материалы 12 STOREEZ",
+            "Фактуры осени",
+            "Деловой гардероб",
+            "Спортивная капсула",
+            "Бестселлеры",
+            "Летний гардероб",
+            "Вечерняя коллекция",
+            "Подарки",
+            "Смотреть все"
+    };
+}
