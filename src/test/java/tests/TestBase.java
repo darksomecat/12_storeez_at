@@ -2,6 +2,7 @@ package tests;
 
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.logevents.SelenideLogger;
+import helpers.Attach;
 import io.qameta.allure.selenide.AllureSelenide;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
@@ -10,9 +11,8 @@ import org.openqa.selenium.MutableCapabilities;
 import org.openqa.selenium.PageLoadStrategy;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxOptions;
-import tests.helpers.Attach;
-import tests.pages.*;
-import tests.testdata.TestData;
+import pages.*;
+import testdata.TestData;
 
 import java.util.List;
 import java.util.Map;
@@ -36,31 +36,14 @@ public class TestBase {
 
     @BeforeAll
     static void beforeAll() {
-        String remote = System.getProperty("remote");
-        String browser = System.getProperty("browser");
-        String browserSize = System.getProperty("browserSize");
-        String baseUrl = System.getProperty("baseUrl");
-        String browserVersion = System.getProperty("browserVersion");
-        String headless = System.getProperty("headless");
-
-        Configuration.baseUrl = baseUrl != null ? baseUrl : "https://12storeez.com";
+        Configuration.baseUrl = System.getProperty("baseUrl", "https://12storeez.com");
+        Configuration.browser = System.getProperty("browser", "chrome");
+        Configuration.browserSize = System.getProperty("browserSize", "1920x1080");
+        Configuration.browserVersion = System.getProperty("browserVersion");
+        Configuration.remote = System.getProperty("remote");
+        Configuration.headless = Boolean.parseBoolean(System.getProperty("headless", "false"));
         Configuration.pageLoadStrategy = "eager";
-
-        if (remote != null) Configuration.remote = remote;
-        if (browser != null) Configuration.browser = browser;
-        if (browserSize != null) Configuration.browserSize = browserSize;
-        if (baseUrl != null) Configuration.baseUrl = baseUrl;
-        if (browserVersion != null) Configuration.browserVersion = browserVersion;
-        if (headless != null) {
-            Configuration.headless = Boolean.parseBoolean(headless);
-        }
-
-        System.out.println("remote: " + remote);
-        System.out.println("browser: " + Configuration.browser);
-        System.out.println("browserSize: " + Configuration.browserSize);
-        System.out.println("baseUrl: " + Configuration.baseUrl);
-        System.out.println("browserVersion: " + Configuration.browserVersion);
-        System.out.println("headless: " + Configuration.headless);
+        Configuration.timeout = 10000;
 
         MutableCapabilities capabilities = new MutableCapabilities();
         capabilities.setCapability("pageLoadStrategy", "eager");
