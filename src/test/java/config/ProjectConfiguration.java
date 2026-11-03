@@ -33,12 +33,8 @@ public class ProjectConfiguration {
         capabilities.setCapability("pageLoadStrategy", "eager");
         capabilities.setCapability("se:cdpEnabled", false);
 
-        if (config.isRemote()) {
-            Configuration.remote = String.format(
-                    config.remote(),
-                    authConfig.username(),
-                    authConfig.password()
-            );
+        if (config.isRemote() || hasRemoteUrl()) {
+            Configuration.remote = resolveRemoteUrl();
             capabilities.setCapability("selenoid:options", Map.of(
                     "enableVNC", true,
                     "enableVideo", true,
@@ -59,5 +55,17 @@ public class ProjectConfiguration {
         }
 
         Configuration.browserCapabilities = capabilities;
+    }
+
+    private boolean hasRemoteUrl() {
+        return config.remote() != null && !config.remote().isBlank();
+    }
+
+    private String resolveRemoteUrl() {
+        String remote = config.remote();
+        if (remote.contains("%s")) {
+            return String.format(remote, authConfig.username(), authConfig.password());
+        }
+        return remote;
     }
 }
