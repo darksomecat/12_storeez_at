@@ -19,7 +19,8 @@ dependencies {
             "com.codeborne:selenide:7.16.0",
             "org.junit.jupiter:junit-jupiter:5.14.2",
             "com.github.javafaker:javafaker:1.0.2",
-            "io.qameta.allure:allure-selenide:2.35.4")
+            "io.qameta.allure:allure-selenide:2.35.4",
+            "org.aeonbits.owner:owner:1.0.12")
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 
     constraints {
@@ -28,9 +29,6 @@ dependencies {
     }
 }
 
-tasks.withType(JavaCompile).configureEach {
-    options.encoding = 'UTF-8'
-}
 
 tasks.withType(Test) {
     useJUnitPlatform()
