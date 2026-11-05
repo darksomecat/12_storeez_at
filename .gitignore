@@ -4,3 +4,4 @@
 *.class
 /allure-results
 /allure-report
+/auth.properties
