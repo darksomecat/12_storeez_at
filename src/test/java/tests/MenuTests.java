@@ -1,14 +1,26 @@
 package tests;
 
 import io.qameta.allure.Feature;
+import io.qameta.allure.JiraIssue;
+import io.qameta.allure.JiraIssues;
+import io.qameta.allure.Layer;
+import io.qameta.allure.Owner;
+import io.qameta.allure.Story;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
+import org.junit.jupiter.api.Tags;
 import org.junit.jupiter.api.Test;
 
+@Layer("web")
+@Owner("aukolova")
+@Feature("Боковая панель каталога товаров")
 public class MenuTests extends TestBase {
 
-    @Feature("Левое меню")
     @Test
-    @DisplayName("Левое меню: вкладка Женщинам и список ссылок")
+    @Story("Реализация sidebar с каталогом товаров")
+    @JiraIssues({@JiraIssue("MUL-58")})
+    @Tags({@Tag("web"), @Tag("normal")})
+    @DisplayName("Sidebar: вкладка Женщинам и список ссылок")
     void leftMenuWomenCollectionTest() {
         mainPage.openPage()
                 .openLeftMenu()
@@ -20,9 +32,11 @@ public class MenuTests extends TestBase {
                 .checkMenuClosed();
     }
 
-    @Feature("Левое меню")
     @Test
-    @DisplayName("Левое меню: вкладка Мужчинам и список ссылок")
+    @Story("Реализация sidebar с каталогом товаров")
+    @JiraIssues({@JiraIssue("MUL-58")})
+    @Tags({@Tag("web"), @Tag("normal")})
+    @DisplayName("Sidebar: вкладка Мужчинам и список ссылок")
     void leftMenuManCollectionTest() {
         mainPage.openPage()
                 .openLeftMenu()
