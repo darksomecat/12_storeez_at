@@ -9,12 +9,27 @@ repositories {
 
 allure {
     version.set("2.46.0")
+    adapter {
+        autoconfigure.set(true)
+        aspectjWeaver.set(true)
+        frameworks {
+            junit5 {
+                adapterVersion.set("2.35.4")
+            }
+        }
+    }
 }
 
 group = 'guru.qa'
 version = '1.0-SNAPSHOT'
 
 dependencies {
+    implementation(
+            "commons-io:commons-io:2.15.1",
+            "io.qameta.allure:allure-java-commons:2.35.4",
+            "org.junit.jupiter:junit-jupiter-api:5.14.2"
+    )
+
     testImplementation (
             "com.codeborne:selenide:7.16.0",
             "org.junit.jupiter:junit-jupiter:5.14.2",
@@ -33,6 +48,7 @@ dependencies {
 tasks.withType(Test) {
     useJUnitPlatform()
     systemProperties(System.getProperties())
+    systemProperty("junit.jupiter.extensions.autodetection.enabled", "true")
     ignoreFailures = true
 
     testLogging {
