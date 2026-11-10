@@ -14,6 +14,7 @@ public class SearchPage {
     private final SelenideElement searchInput = $(".HeaderSearch__field input.TextInput__input");
     private final ElementsCollection searchTaps = $$(".SearchSection__content .HeaderSearch__tap");
     private final ElementsCollection productCards = $$(".ProductCard");
+    private final SelenideElement productCardLink = $(".ProductCard__link, .ProductCard a");
     private final ElementsCollection productTitles = $$(".ProductCard__title");
     private final SelenideElement searchResultTitle = $("body");
     private String selectedSearchTap;
@@ -72,7 +73,7 @@ public class SearchPage {
 
     @Step("Открыть первую карточку товара")
     public SearchPage openFirstProductCard() {
-        productCards.first().$(".ProductCard__link, a").shouldBe(visible).click();
+        productCardLink.shouldBe(visible).click();
         return this;
     }
 }

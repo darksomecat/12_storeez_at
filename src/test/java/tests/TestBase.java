@@ -1,5 +1,6 @@
 package tests;
 
+import com.codeborne.selenide.WebDriverRunner;
 import com.codeborne.selenide.logevents.SelenideLogger;
 import config.AuthConfig;
 import config.ConfigReader;
@@ -39,7 +40,10 @@ public class TestBase {
     }
 
     @AfterEach
-    void addAtachments() {
+    void addAttachments() {
+        if (!WebDriverRunner.hasWebDriverStarted()) {
+            return;
+        }
         Attach.screenshotAs("Last screenshot");
         Attach.pageSource();
         Attach.browserConsoleLogs();

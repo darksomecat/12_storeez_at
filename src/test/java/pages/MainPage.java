@@ -13,6 +13,8 @@ public class MainPage {
     private final SelenideElement menuButton = $(".HeaderMenuButton");
     private final SelenideElement menuDesktop = $(".MenuDesktop");
     private final SelenideElement genderTabs = $(".MenuGenderTabs");
+    private final SelenideElement activeGenderTab = $(".MenuGenderTabs__item--active");
+    private final SelenideElement appsMenuLink = $("a[href='/info/apps']");
     private final SelenideElement searchIcon = $(".Header__icons--right div.header-icon");
     private final SelenideElement searchInput = $(".HeaderSearch__field input.TextInput__input");
     private final SelenideElement wishlistHeaderIcon = $("a.header-icon[href='/profile/wishlist']");
@@ -55,15 +57,13 @@ public class MainPage {
     @Step("Выбрать вкладку \"{gender}\" в левом меню")
     public MainPage selectMenuGender(String gender) {
         genderTabs.$(byText(gender)).click();
-        genderTabs.$(".MenuGenderTabs__item--active")
-                .shouldHave(text(gender));
+        activeGenderTab.shouldHave(text(gender));
         return this;
     }
 
     @Step("Проверить активную вкладку меню \"{gender}\"")
     public MainPage checkActiveMenuGender(String gender) {
-        genderTabs.$(".MenuGenderTabs__item--active")
-                .shouldHave(text(gender));
+        activeGenderTab.shouldHave(text(gender));
         return this;
     }
 
@@ -83,7 +83,7 @@ public class MainPage {
     @Step("Перейти в раздел приложения из меню")
     public MainPage openAppsFromMenu() {
         openLeftMenu();
-        $("a[href='/info/apps']").shouldBe(visible).click();
+        appsMenuLink.shouldBe(visible).click();
         return this;
     }
 
