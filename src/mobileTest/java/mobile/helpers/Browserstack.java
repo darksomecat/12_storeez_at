@@ -1,6 +1,6 @@
 package mobile.helpers;
 
-import config.Config;
+import mobile.config.Config;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 

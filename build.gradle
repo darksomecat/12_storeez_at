@@ -78,3 +78,16 @@ tasks.withType(Test) {
         }
     }
 }
+
+tasks.register('mobileTest', Test) {
+    description = 'Runs mobile tests (Appium). Use -DdeviceHost=browserstack|emulation|real'
+    group = 'verification'
+    testClassesDirs = sourceSets.mobileTest.output.classesDirs
+    classpath = sourceSets.mobileTest.runtimeClasspath
+    def weaver = configurations.mobileTestRuntimeClasspath.find { it.name.startsWith('aspectjweaver') }
+    jvmArgs "-javaagent:$weaver"
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}

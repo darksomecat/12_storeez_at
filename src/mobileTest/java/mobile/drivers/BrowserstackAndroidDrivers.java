@@ -1,7 +1,7 @@
 package mobile.drivers;
 
 import com.codeborne.selenide.WebDriverProvider;
-import config.Config;
+import mobile.config.Config;
 import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.MutableCapabilities;
 import org.openqa.selenium.WebDriver;
