@@ -1,6 +1,7 @@
 package mobile.tests;
 
 import com.codeborne.selenide.Configuration;
+import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.logevents.SelenideLogger;
 import io.qameta.allure.selenide.AllureSelenide;
 import mobile.drivers.DriverFactory;
@@ -34,11 +35,21 @@ public class TestBase {
 
     @AfterEach
     void addAttachments() {
+        String sessionId = null;
         try {
+            sessionId = Selenide.sessionId().toString();
             Attach.safely("Screenshot", () -> Attach.screenshotAs("Last screenshot"));
             Attach.safely("Page source", Attach::pageSource);
         } finally {
             closeWebDriver();
+        }
+
+        if (sessionId != null && DriverFactory.isBrowserstack()) {
+            String id = sessionId;
+            Attach.safely("Video", () -> Attach.addVideo(id));
+            Attach.safely("Text logs", () -> Attach.textLogs(id));
+            Attach.safely("Appium logs", () -> Attach.appiumLogs(id));
+            Attach.safely("Device logs", () -> Attach.deviceLogs(id));
         }
     }
 }
