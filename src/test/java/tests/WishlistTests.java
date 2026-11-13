@@ -47,7 +47,7 @@ public class WishlistTests extends TestBase {
     @JiraIssues({@JiraIssue("MUL-58")})
     @Tags({@Tag("web"), @Tag("normal")})
     @Severity(SeverityLevel.NORMAL)
-    @DisplayName("Пустая страница вишлиста")
+    @DisplayName("Пустая страница \"Список избранного\"")
     void emptyWishlistTest() {
         mainPage.openPage()
                 .openWishlistFromHeader();
@@ -64,7 +64,7 @@ public class WishlistTests extends TestBase {
     @JiraIssues({@JiraIssue("MUL-58")})
     @Tags({@Tag("web"), @Tag("critical")})
     @Severity(SeverityLevel.CRITICAL)
-    @DisplayName("Удаление товара из вишлиста")
+    @DisplayName("Удаление товара из \"Списка избранного\"")
     void removeProductFromWishlistTest() {
         mainPage.openPage()
                 .openSearch();
@@ -93,7 +93,7 @@ public class WishlistTests extends TestBase {
     @JiraIssues({@JiraIssue("MUL-58")})
     @Tags({@Tag("web"), @Tag("critical")})
     @Severity(SeverityLevel.CRITICAL)
-    @DisplayName("Добавление товара в корзину из вишлиста")
+    @DisplayName("Добавление товара в корзину из \"Списка избранного\"")
     void addProductToCartFromWishlistTest() {
         mainPage.openPage()
                 .openSearch();
@@ -121,7 +121,7 @@ public class WishlistTests extends TestBase {
     @JiraIssues({@JiraIssue("MUL-58")})
     @Tags({@Tag("web"), @Tag("normal")})
     @Severity(SeverityLevel.NORMAL)
-    @DisplayName("Закрытие поп-апа выбора размера по крестику")
+    @DisplayName("Закрытие поп-апа выбора размера по крестику в \"Списке избранного\"")
     void closeSizePopupFromWishlistTest() {
         mainPage.openPage()
                 .openSearch();

@@ -18,7 +18,6 @@ import static com.codeborne.selenide.Selenide.closeWebDriver;
 
 public class TestBase {
     MainPage mainPage = new MainPage();
-    MenuCollectionPage menuCollectionPage = new MenuCollectionPage();
     AppsPage appsPage = new AppsPage();
     SearchPage searchPage = new SearchPage();
     ProductPage productPage = new ProductPage();

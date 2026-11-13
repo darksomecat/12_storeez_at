@@ -15,8 +15,6 @@ public class TestData {
     public String googlePlayUrl = "play.google.com";
     public String emptyCartText = "Ваша корзина пока пуста";
     public String cartItemQuantity = "1";
-    public String womenTab = "Женщинам";
-    public String menTab = "Мужчинам";
     public String sizeExcludeText = "Подписка";
     public String addToCartButton = "Добавить в корзину";
     public String goToCartButton = "Перейти в корзину";
@@ -32,39 +30,4 @@ public class TestData {
     public String wishlistAddToCartButton = "В корзину";
     public String sizePopupTitle = "Выберите размер";
     public String searchResultHeadline = "Результат поиска по запросу";
-    public String[] womenCollectionLinks = {
-            "Новинки",
-            "Гид по верхней одежде",
-            "Самое теплое",
-            "Одежда",
-            "Обувь",
-            "Сумки и аксессуары",
-            "Материалы 12 STOREEZ",
-            "Фактуры осени",
-            "Деловой гардероб",
-            "Капсула GI",
-            "Спортивная капсула",
-            "Бестселлеры",
-            "Летний гардероб",
-            "Вечерняя коллекция",
-            "Подарки",
-            "Смотреть все"
-    };
-    public String[] menCollectionLinks = {
-            "Новинки",
-            "Гид по верхней одежде",
-            "Самое теплое",
-            "Одежда",
-            "Обувь",
-            "Сумки и аксессуары",
-            "Материалы 12 STOREEZ",
-            "Фактуры осени",
-            "Деловой гардероб",
-            "Спортивная капсула",
-            "Бестселлеры",
-            "Летний гардероб",
-            "Вечерняя коллекция",
-            "Подарки",
-            "Смотреть все"
-    };
 }
