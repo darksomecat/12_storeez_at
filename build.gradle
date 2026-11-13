@@ -10,7 +10,6 @@ repositories {
 allure {
     version.set("2.46.0")
     adapter {
-        autoconfigure.set(true)
         aspectjWeaver.set(true)
         frameworks {
             junit5 {
@@ -32,6 +31,7 @@ dependencies {
 
     testImplementation (
             "com.codeborne:selenide:7.16.0",
+            "io.rest-assured:rest-assured:6.2.0",
             "org.junit.jupiter:junit-jupiter:5.14.2",
             "com.github.javafaker:javafaker:1.0.2",
             "io.qameta.allure:allure-selenide:2.35.4",

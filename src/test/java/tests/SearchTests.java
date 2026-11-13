@@ -5,6 +5,8 @@ import io.qameta.allure.JiraIssue;
 import io.qameta.allure.JiraIssues;
 import io.qameta.allure.Layer;
 import io.qameta.allure.Owner;
+import io.qameta.allure.Severity;
+import io.qameta.allure.SeverityLevel;
 import io.qameta.allure.Story;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
@@ -20,6 +22,7 @@ public class SearchTests extends TestBase {
     @Story("Панель быстрого поиска")
     @JiraIssues({@JiraIssue("MUL-58")})
     @Tags({@Tag("web"), @Tag("critical")})
+    @Severity(SeverityLevel.CRITICAL)
     @DisplayName("Поиск при вводе значения: в карточках есть соответствующие результаты")
     void searchByWordTest() {
         mainPage.openPage()
@@ -34,6 +37,7 @@ public class SearchTests extends TestBase {
     @Story("Панель быстрого поиска")
     @JiraIssues({@JiraIssue("MUL-58")})
     @Tags({@Tag("web"), @Tag("normal")})
+    @Severity(SeverityLevel.NORMAL)
     @DisplayName("Поиск через первую подсказку")
     void searchBySuggestionTest() {
         mainPage.openPage()

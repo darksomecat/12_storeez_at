@@ -1,5 +1,6 @@
 package tests;
 
+import com.codeborne.selenide.WebDriverRunner;
 import com.codeborne.selenide.logevents.SelenideLogger;
 import config.AuthConfig;
 import config.ConfigReader;
@@ -17,7 +18,6 @@ import static com.codeborne.selenide.Selenide.closeWebDriver;
 
 public class TestBase {
     MainPage mainPage = new MainPage();
-    MenuCollectionPage menuCollectionPage = new MenuCollectionPage();
     AppsPage appsPage = new AppsPage();
     SearchPage searchPage = new SearchPage();
     ProductPage productPage = new ProductPage();
@@ -39,7 +39,10 @@ public class TestBase {
     }
 
     @AfterEach
-    void addAtachments() {
+    void addAttachments() {
+        if (!WebDriverRunner.hasWebDriverStarted()) {
+            return;
+        }
         Attach.screenshotAs("Last screenshot");
         Attach.pageSource();
         Attach.browserConsoleLogs();

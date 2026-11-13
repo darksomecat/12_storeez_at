@@ -4,7 +4,6 @@ import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
 
 import static com.codeborne.selenide.Condition.*;
-import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.open;
 
@@ -12,7 +11,7 @@ public class MainPage {
 
     private final SelenideElement menuButton = $(".HeaderMenuButton");
     private final SelenideElement menuDesktop = $(".MenuDesktop");
-    private final SelenideElement genderTabs = $(".MenuGenderTabs");
+    private final SelenideElement appsMenuLink = $("a[href='/info/apps']");
     private final SelenideElement searchIcon = $(".Header__icons--right div.header-icon");
     private final SelenideElement searchInput = $(".HeaderSearch__field input.TextInput__input");
     private final SelenideElement wishlistHeaderIcon = $("a.header-icon[href='/profile/wishlist']");
@@ -45,45 +44,10 @@ public class MainPage {
         return this;
     }
 
-    @Step("Проверить, что левое меню открыто")
-    public MainPage checkMenuOpened() {
-        menuDesktop.shouldBe(visible);
-        genderTabs.shouldBe(visible);
-        return this;
-    }
-
-    @Step("Выбрать вкладку \"{gender}\" в левом меню")
-    public MainPage selectMenuGender(String gender) {
-        genderTabs.$(byText(gender)).click();
-        genderTabs.$(".MenuGenderTabs__item--active")
-                .shouldHave(text(gender));
-        return this;
-    }
-
-    @Step("Проверить активную вкладку меню \"{gender}\"")
-    public MainPage checkActiveMenuGender(String gender) {
-        genderTabs.$(".MenuGenderTabs__item--active")
-                .shouldHave(text(gender));
-        return this;
-    }
-
-    @Step("Закрыть левое меню")
-    public MainPage closeLeftMenu() {
-        menuButton.click();
-        menuDesktop.shouldBe(hidden);
-        return this;
-    }
-
-    @Step("Проверить, что левое меню закрыто")
-    public MainPage checkMenuClosed() {
-        menuDesktop.shouldBe(hidden);
-        return this;
-    }
-
     @Step("Перейти в раздел приложения из меню")
     public MainPage openAppsFromMenu() {
         openLeftMenu();
-        $("a[href='/info/apps']").shouldBe(visible).click();
+        appsMenuLink.shouldBe(visible).click();
         return this;
     }
 
