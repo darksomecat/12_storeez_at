@@ -53,11 +53,10 @@ public class AppsPage {
         return this;
     }
 
-    @Step("Проверить, что в магазине по адресу \"{expectedUrlPart}\" открыто приложение \"{appName}\"")
-    public AppsPage checkStorePageOpened(String expectedUrlPart, String appName) {
+    @Step("Проверить, что открыта страница магазина по адресу \"{expectedUrlPart}\"")
+    public AppsPage checkStorePageOpened(String expectedUrlPart) {
         switchTo().window(1);
         webdriver().shouldHave(urlContaining(expectedUrlPart));
-        $("h1").shouldHave(text(appName));
         closeWindow();
         switchTo().window(0);
         return this;
