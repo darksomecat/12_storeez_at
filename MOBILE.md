@@ -7,10 +7,6 @@
   </a>
 </p>
 
-> Автотесты покрывают ключевые сценарии Android-приложения **12 STOREEZ** (версия 1.60.0):
-> онбординг первого запуска, каталог и карточка товара, корзина, список избранного.
-> Прогоны выполняются локально на эмуляторе/реальном устройстве через Appium
-> и удалённо в облаке **BrowserStack** (режим по умолчанию).
 
 ____
 
@@ -63,7 +59,7 @@ ____
 **Корзина:**
 - Добавление товара в корзину (выбор размера) и проверка товара в корзине;
 - Очистка корзины: корзина становится пустой;
-- Пустая корзина сразу после запуска (заголовок и кнопка «Перейти в каталог»).
+- Пустая корзина.
 
 **Список избранного:**
 - Добавление товара в список избранного с карточки товара и проверка товара в списке;
@@ -73,7 +69,6 @@ ____
 - Открытие первого товара раздела «Новинки» через нижнюю навигацию «Каталог».
 
 <p align="center">
-  <img title="12 STOREEZ — каталог" src="images/screenshots/mobile/catalog.png" alt="Каталог" width="220"/>
   <img title="12 STOREEZ — карточка товара" src="images/screenshots/mobile/product_card.png" alt="Карточка товара" width="220"/>
   <img title="12 STOREEZ — корзина" src="images/screenshots/mobile/cart.png" alt="Корзина" width="220"/>
   <img title="12 STOREEZ — пустой список избранного" src="images/screenshots/mobile/wishlist_empty.png" alt="Список избранного" width="220"/>
@@ -88,7 +83,7 @@ ____
 src/mobileTest
 ├── java/mobile
 │   ├── config        ← конфиги стендов на Owner (Run, BrowserStack, Emulation, RealDevice)
-│   ├── drivers       ← DriverFactory, LocalDriver, EmulationDriver, RealDeviceDriver, BrowserstackDrivers
+│   ├── drivers       ← DriverFactory, LocalDriver, EmulationDriver, RealDeviceDriver, BrowserstackAndroidDrivers, SanitizingRemoteWebDriver
 │   ├── helpers       ← вложения Allure (Attach), клиент API BrowserStack
 │   ├── locators      ← TwelveStoreezLocators (UiSelector/XPath)
 │   ├── steps         ← OnboardingSteps, CatalogSteps, CartSteps, WishlistSteps
@@ -103,21 +98,13 @@ ____
 
 ### Удалённый запуск в BrowserStack (по умолчанию)
 
-Достаточно выполнить — стенд `browserstack` выбран по умолчанию, данные аккаунта и приложение (`bs://…`) хранятся в `config.properties`:
-
 ```bash
 gradlew clean mobileTest
 ```
 
 ### Локальный запуск на эмуляторе
 
-Перед запуском: Android SDK с эмулятором создан и запущен, поднят Appium-сервер:
-
-```bash
-appium
-```
-
-Затем:
+Требуется запущенный Android эмулятор:
 
 ```bash
 gradlew clean mobileTest -DdeviceHost=emulation -Ddevice.udid=emulator-5554 -Dappium.url=http://127.0.0.1:4723/
@@ -138,51 +125,97 @@ gradlew clean mobileTest -DdeviceHost=real -Ddevice.udid=<серийный но�
 | `appium.url` | Адрес локального Appium-сервера |
 
 ____
-
-<a id="jenkins"></a>
-## <img alt="Jenkins" height="25" src="images/logo/Jenkins.svg" width="25"/> <a href="https://jenkins.qa.guru/job/aukolova-12STOREEZ-Mobile/">Сборка в Jenkins</a>
-
-Удалённый прогон мобильных тестов выполняется джобой **aukolova-12STOREEZ-Mobile** на Jenkins: тесты уходят в облако BrowserStack, по завершении формируется Allure-отчёт.
-
-Команда сборки:
-
-```bash
-gradle clean mobileTest
-```
-
-____
-
-<a id="allure"></a>
-## <img alt="Allure Report" height="25" src="images/logo/Allure_Report.svg" width="25"/> Allure-отчёт
-
-Содержание отчёта по мобильным тестам:
-* шаги теста (аннотации `@Step` и действия Selenide);
-* скриншот последнего экрана;
-* Page Source (иерархия UI в момент завершения);
-* видео выполнения сессии и логи (Appium / устройства) — при прогоне в BrowserStack.
-
-<p align="center">
-  <img title="Allure Report — мобильные тесты, overview" src="images/screenshots/mobile/allure_report.png" alt="Allure Report — Mobile" width="950"/>
-</p>
-
-____
-
-<a id="video"></a>
-## Видео прохождения тестов
-
-При прогоне в BrowserStack к каждому тесту в отчёте прикладывается видео сессии целиком — от установки приложения до закрытия сессии.
-
-____
-
 <a id="notes"></a>
 ## Особенности реализации
 
 - **Приложение написано на Jetpack Compose**, поэтому значительная часть локаторов построена на `UiSelector` по тексту (`text` / `textContains` / `textMatches`); для многословных строк используются регэкспы с `\s+`, потому что в приложении встречаются неразрывные пробелы.
 - **Чистая установка перед каждым тестом** (`fullReset`): приложение удаляется после сессии и ставится заново — каждый тест начинается с настоящего первого запуска.
-- **Строгие ожидания вместо ретраев**: действия выполняются один раз, дальше работают стандартные ожидания Selenide — если экран не открылся, тест честно падает.
-- **Восстановление после ошибки холодного старта**: если при свежей установке приложение показывает экран «Что-то пошло не так», прогон сам нажимает «Повторить попытку» и дожидается онбординга.
+- **Восстановление после ошибки холодного старта**: при свежей установке приложение на некоторых устройствах показывает экран «Что-то пошло не так», прогон сам нажимает «Повторить попытку» и дожидается онбординга.
 - **Изоляция версий**: web и mobile направления живут в одном репозитории, но с разными classpath (Selenide 7.x для web, 6.13 + Appium 8.3 для mobile) и независимыми Gradle-задачами `test` и `mobileTest`.
 
 ____
+
+<a id="jenkins"></a>
+## <img alt="Jenkins" height="25" src="images/logo/Jenkins.svg" width="25"/> <a href="https://jenkins.qa.guru/job/aukolova-12STOREEZ-Mobile/">Сборка в Jenkins</a>
+
+
+
+<p align="center">
+  <img title="Allure Report — Overview Dashboard" src="images/screenshots/mobile/allure_overview_mobile.png" alt="Allure Overview" width="950"/>
+</p>
+
+____
+
+<a id="allure"></a>
+## <img alt="Allure Report" height="25" src="images/logo/Allure_Report.svg" width="25"/> Allure-отчёт
+### Overview
+
+<p align="center">
+  <img title="Allure Report — мобильные тесты, overview" src="images/screenshots/mobile/allure_report_mobile.png" alt="Allure Report — Mobile" width="950"/>
+</p>
+
+### Результаты выполнения теста
+
+<p align="center">
+  <img title="Allure Report — результат выполнения теста" src="images/screenshots/mobile/allure_test_result_mobile.png" alt="Allure test result" width=" 950"/>
+</p>
+
+
+
+
+
+____
+<a id="allure-testops"></a>
+## <img alt="Allure ТестОпс" height="25" src="images/logo/AllureTestOps.svg" width="25"/> <a href="https://allure.qa.guru/project/5401/dashboards/5700">Интеграция с Allure ТестОпс</a>
+
+Выполнена интеграция сборки Jenkins с **Allure ТестОпс**. Каждый тест размечен аннотациями `@Story`, `@JiraIssues`, `@Tags`, `@Severity` и `@DisplayName` и находится в одном пространстве с UI тестами.
+
+### Запуски
+
+<p align="center">
+  <img title="Allure ТестОпс — Dashboard со статистикой прогонов" src="images/screenshots/testops_test_runs.png" alt="Allure ТестОпс Dashboard" width="950"/>
+</p>
+
+
+____
+
+<a id="jira"></a>
+## <img alt="Jira" height="25" src="images/logo/Jira.svg" width="25"/> <a href="https://jira.qa.guru/browse/MUL-58">Интеграция с Jira</a>
+
+Реализована интеграция **Allure ТестОпс** с **Jira**: в тикете отображаются связанные тест-кейсы и результаты прогонов.
+
+### Запуски
+<p align="center">
+  <img title="Jira — тест-кейсы и результаты прогона в задаче" src="images/screenshots/jira_runs.png" alt="Jira integration" width="950"/>
+</p>
+
+### Тест-кейсы
+<p align="center">
+  <img title="Jira — тест-кейсы и результаты прогона в задаче" src="images/screenshots/jira_tests.png" alt="Jira integration" width="950"/>
+</p>
+
+____
+<a id="video"></a>
+## Видео прохождения тестов
+
+К каждому тесту в отчёте прикладывается видео сессии целиком — от установки приложения до закрытия сессии.
+
+Кейс: "Удаление товара из корзины"
+<p align="center">
+  <img title="Selenoid — пример видео прохождения автотеста" src="images/screenshots/mobile/selenoid_video_mobile.gif" alt="Selenoid video" width="650" height="600"/>
+</p>
+
+____
+
+<a id="telegram"></a>
+## <img alt="Telegram" height="25" src="images/logo/Telegram.svg" width="25"/> Уведомления в Telegram
+
+После завершения сборки бот в Telegram отправляет сообщение с результатом прогона.
+
+<p align="center">
+  <img title="Telegram — уведомление о результате сборки" src="images/screenshots/mobile/telegram_notification_mobile.png" alt="Telegram notification" width="550"/>
+</p>
+____
+
 
 ← [Вернуться к основному README](README.md)
