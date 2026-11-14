@@ -14,16 +14,16 @@ import static mobile.locators.TwelveStoreezLocators.textContains;
 
 public class WishlistSteps {
 
-    @Step("Добавить товар в список избранного с карточки товара")
+    @Step("Добавить товар в список избранного")
     public WishlistSteps addToWishlistFromProductCard() {
-        $(PRODUCT_WISHLIST_BUTTON).shouldBe(visible).click();
+        $(PRODUCT_WISHLIST_BUTTON).click();
         return this;
     }
 
     @Step("Открыть список избранного через нижнюю навигацию")
     public WishlistSteps openWishlistFromBottomNavigation() {
         OnboardingSteps.dismissNotificationsDialogIfShown();
-        $(WISHLIST_TAB_NATIVE).shouldBe(visible).click();
+        $(WISHLIST_TAB_NATIVE).click();
         return this;
     }
 
@@ -33,14 +33,14 @@ public class WishlistSteps {
         return this;
     }
 
-    @Step("Удалить товар из списка избранного по кнопке удаления")
+    @Step("Удалить товар из списка избранного")
     public WishlistSteps removeProductFromWishlist() {
-        $(WISHLIST_DELETE_BUTTON).shouldBe(visible).click();
+        $(WISHLIST_DELETE_BUTTON).click();
         return this;
     }
 
-    @Step("Проверить, что список избранного пуст")
-    public WishlistSteps checkWishlistIsEmpty() {
+    @Step("Проверить заголовок «{title}» и наличие кнопки «{button}» в пустом списке избранного")
+    public WishlistSteps checkWishlistIsEmpty(String title, String button) {
         $(EMPTY_WISHLIST_TITLE).shouldBe(visible);
         $(GO_TO_CATALOG_BUTTON).shouldBe(visible);
         return this;

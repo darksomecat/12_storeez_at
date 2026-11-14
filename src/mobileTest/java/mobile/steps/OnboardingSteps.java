@@ -39,7 +39,7 @@ public class OnboardingSteps {
     private static final long MAIN_SCREEN_WAIT_MS = 25_000;
     private static final long DIALOG_WAIT_MS = 3_000;
 
-    @Step("Проверить, что отображается экран запроса push-уведомлений")
+    @Step("Проверить заголовок и текст экрана запроса push-уведомлений")
     public OnboardingSteps checkNotificationPrimerScreen() {
         $(NOTIFICATIONS_PRIMER_TITLE).shouldBe(visible);
         $(PRIMER_BODY).shouldBe(visible);
@@ -47,32 +47,32 @@ public class OnboardingSteps {
         return this;
     }
 
-    @Step("Перейти с экрана запроса уведомлений по кнопке «Продолжить»")
+    @Step("Закрыть экран запроса уведомлений")
     public OnboardingSteps continueFromNotificationPrimer() {
         $(CONTINUE_BUTTON).click();
         return this;
     }
 
-    @Step("Разрешить уведомления в системном диалоге, если он появился")
+    @Step("Разрешить уведомления в системном диалоге")
     public OnboardingSteps allowNotifications() {
         clickButtonIfAppears(PERMISSION_ALLOW_BUTTON);
         return this;
     }
 
-    @Step("Проверить, что отображается экран персонализации")
+    @Step("Проверить заголовок и текст экрана персонализации")
     public OnboardingSteps checkTrackingScreen() {
         $(TRACKING_TITLE).shouldBe(visible);
         $(TRACKING_BODY).shouldBe(visible);
         return this;
     }
 
-    @Step("Перейти с экрана персонализации по кнопке «Продолжить»")
+    @Step("Закрыть экран персонализации")
     public OnboardingSteps continueFromTracking() {
         $(CONTINUE_BUTTON).click();
         return this;
     }
 
-    @Step("Проверить, что отображается экран предложения авторизации")
+    @Step("Проверить заголовок и текст экрана предложения авторизации")
     public OnboardingSteps checkAuthScreen() {
         $(AUTH_TITLE).shouldBe(visible);
         $(AUTH_BODY).shouldBe(visible);
@@ -81,19 +81,19 @@ public class OnboardingSteps {
         return this;
     }
 
-    @Step("Пропустить авторизацию по кнопке «Не сейчас»")
+    @Step("Пропустить авторизацию")
     public OnboardingSteps skipAuth() {
         $(NOT_NOW_BUTTON).click();
         return this;
     }
 
-    @Step("Перейти к авторизации по кнопке «Авторизоваться»")
+    @Step("Перейти к авторизации»")
     public OnboardingSteps openLoginScreen() {
         $(AUTHORIZE_BUTTON).click();
         return this;
     }
 
-    @Step("Проверить, что отображается экран входа в профиль")
+    @Step("Проверить атрибуты экрана авторизации")
     public OnboardingSteps checkLoginScreen() {
         $(LOGIN_TITLE).shouldBe(visible);
         $(LOGIN_NEXT_BUTTON).shouldBe(visible);
@@ -121,7 +121,7 @@ public class OnboardingSteps {
         return this;
     }
 
-    @Step("Дождаться главного экрана, закрыв плашку уведомлений")
+    @Step("Дождаться главного экрана и закрыть согласие о уведомлении")
     public OnboardingSteps waitForMainScreen() {
         long deadline = System.currentTimeMillis() + MAIN_SCREEN_WAIT_MS;
         boolean dialogSeen = false;
@@ -188,7 +188,7 @@ public class OnboardingSteps {
         }
     }
 
-    @Step("Дождаться загрузки приложения, повторяя попытку при ошибке запуска")
+    @Step("Дождаться загрузки приложения или повторить попытку при ошибке запуска")
     public OnboardingSteps recoverFromStartupErrorIfShown() {
         long deadline = System.currentTimeMillis() + SCREEN_WAIT_MS;
         while (System.currentTimeMillis() < deadline) {

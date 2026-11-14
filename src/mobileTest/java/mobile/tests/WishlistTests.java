@@ -1,6 +1,9 @@
 package mobile.tests;
 
 import io.qameta.allure.Feature;
+import io.qameta.allure.JiraIssue;
+import io.qameta.allure.JiraIssues;
+import io.qameta.allure.Layer;
 import io.qameta.allure.Owner;
 import io.qameta.allure.Severity;
 import io.qameta.allure.SeverityLevel;
@@ -9,10 +12,13 @@ import mobile.steps.CatalogSteps;
 import mobile.steps.WishlistSteps;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
+import org.junit.jupiter.api.Tags;
 import org.junit.jupiter.api.Test;
 
+@Layer("mobile")
 @Owner("aukolova")
-@Feature("Список избранного")
+@Feature("Wishlist")
 public class WishlistTests extends TestBase {
 
     private final CatalogSteps catalogSteps = new CatalogSteps();
@@ -24,9 +30,11 @@ public class WishlistTests extends TestBase {
     }
 
     @Test
-    @Story("Управление избранным")
+    @Story("Управление товарами в списке избранного")
+    @JiraIssues({@JiraIssue("MUL-78")})
+    @Tags({@Tag("mobile"), @Tag("critical")})
     @Severity(SeverityLevel.CRITICAL)
-    @DisplayName("Добавление товара в список избранного и проверка товара в списке избранного")
+    @DisplayName("Добавление и проверка товара в вкладке \"Список избранного\"")
     void addProductToWishlistTest() {
         catalogSteps.openCatalog();
         String product = catalogSteps.openFirstNewArrivalProduct();
@@ -37,9 +45,11 @@ public class WishlistTests extends TestBase {
     }
 
     @Test
-    @Story("Управление избранным")
+    @Story("Управление товарами в списке избранного")
+    @JiraIssues({@JiraIssue("MUL-78")})
+    @Tags({@Tag("mobile"), @Tag("normal")})
     @Severity(SeverityLevel.NORMAL)
-    @DisplayName("Удаление товара из списка избранного")
+    @DisplayName("Удаление товара из \"Списка избранного\"")
     void removeProductFromWishlistTest() {
         catalogSteps.openCatalog();
         String product = catalogSteps.openFirstNewArrivalProduct();
@@ -48,6 +58,6 @@ public class WishlistTests extends TestBase {
                 .openWishlistFromBottomNavigation()
                 .checkProductInWishlist(product)
                 .removeProductFromWishlist()
-                .checkWishlistIsEmpty();
+                .checkWishlistIsEmpty("Вишлист пока пуст", "Перейти в каталог");
     }
 }

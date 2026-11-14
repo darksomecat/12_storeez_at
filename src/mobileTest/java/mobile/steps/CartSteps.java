@@ -21,7 +21,7 @@ import static mobile.locators.TwelveStoreezLocators.textContains;
 
 public class CartSteps {
 
-    @Step("Добавить товар в корзину, выбрав первый доступный размер")
+    @Step("Добавить товар в корзину и выбрать первый доступный размер")
     public String addToCartWithAnySize() {
         $(ADD_TO_CART_BUTTON).click();
         SelenideElement sizeChip = $$(SIZE_CHIPS).first().shouldBe(visible);
@@ -31,25 +31,25 @@ public class CartSteps {
         return size;
     }
 
-    @Step("Перейти в корзину по кнопке подтверждения")
+    @Step("Перейти в корзину")
     public CartSteps openCartFromConfirmation() {
         $(GO_TO_CART_BUTTON).click();
         $(CLEAR_CART_BUTTON).shouldBe(visible);
         return this;
     }
 
-    @Step("Очистить корзину с подтверждением")
+    @Step("Удалить товар из корзины")
     public CartSteps clearCart() {
         $(ORDER_SUMMARY_LABEL).shouldBe(visible);
-        $(CLEAR_CART_BUTTON).shouldBe(visible).click();
-        $(CONFIRM_CLEAR_CART_BUTTON).shouldBe(visible).click();
+        $(CLEAR_CART_BUTTON).click();
+        $(CONFIRM_CLEAR_CART_BUTTON).click();
         return this;
     }
 
-    @Step("Открыть корзину через нижнюю навигацию")
+    @Step("Перейти в корзину по кнопке внизу экрана")
     public CartSteps openCartFromBottomNavigation() {
         OnboardingSteps.dismissNotificationsDialogIfShown();
-        $(CART_TAB_NATIVE).shouldBe(visible).click();
+        $(CART_TAB_NATIVE).click();
         return this;
     }
 
@@ -59,8 +59,8 @@ public class CartSteps {
         return this;
     }
 
-    @Step("Проверить, что корзина пуста")
-    public CartSteps checkCartIsEmpty() {
+    @Step("Проверить заголовок «{title}» и наличие кнопки «{button}» в пустой корзине")
+    public CartSteps checkCartIsEmpty(String title, String button) {
         $(EMPTY_CART_TITLE).shouldBe(visible);
         $(GO_TO_CATALOG_BUTTON).shouldBe(visible);
         $(EMPTY_CART_BUTTON_CONTROL).shouldBe(visible);
