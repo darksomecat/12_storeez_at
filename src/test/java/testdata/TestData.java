@@ -10,7 +10,6 @@ public class TestData {
     public String appsBenefitNotifications = "Мгновенные уведомления о самом важном";
     public String appsBenefitQr = "Быстрая идентификация на кассе по QR-коду";
     public String appsQrHint = "Наведите камеру телефона на QR";
-    public String appName = "12 STOREEZ";
     public String appStoreUrl = "apps.apple.com";
     public String googlePlayUrl = "play.google.com";
     public String emptyCartText = "Ваша корзина пока пуста";

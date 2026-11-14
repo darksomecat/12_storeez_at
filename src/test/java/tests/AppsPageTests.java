@@ -47,8 +47,7 @@ public class AppsPageTests extends TestBase {
         mainPage.openPage()
                 .openAppsFromMenu();
         appsPage.clickAppStoreButton()
-                .checkStorePageOpened(testData.appStoreUrl,
-                        testData.appName);
+                .checkStorePageOpened(testData.appStoreUrl);
     }
 
     @Test
@@ -61,6 +60,6 @@ public class AppsPageTests extends TestBase {
         mainPage.openPage()
                 .openAppsFromMenu();
         appsPage.clickGooglePlayButton()
-                .checkStorePageOpened(testData.googlePlayUrl, testData.appName);
+                .checkStorePageOpened(testData.googlePlayUrl);
     }
 }

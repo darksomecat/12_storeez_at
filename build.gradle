@@ -7,20 +7,34 @@ repositories {
     mavenCentral()
 }
 
+def aspectjWeaverVersion = "1.9.25",
+    selenideVersion = "6.13.0",
+    restAssuredVersion = "6.2.0",
+    allureAdaptersVersion = "2.35.5",
+    allureReportVersion = "2.46.1",
+    junitVersion = "5.14.4",
+    slf4jVersion = "2.0.20",
+    appiumVersion = "8.3.0",
+    ownerVersion = "1.0.12"
+
 allure {
-    version.set("2.46.0")
+    version.set(allureReportVersion)
     adapter {
+        allureJavaVersion.set(allureAdaptersVersion)
         aspectjWeaver.set(true)
-        frameworks {
-            junit5 {
-                adapterVersion.set("2.35.4")
-            }
-        }
+        aspectjVersion.set(aspectjWeaverVersion)
     }
 }
 
 group = 'guru.qa'
 version = '1.0-SNAPSHOT'
+
+sourceSets {
+    mobileTest {
+        compileClasspath += sourceSets.main.output
+        runtimeClasspath += output + compileClasspath
+    }
+}
 
 dependencies {
     implementation(
@@ -38,23 +52,46 @@ dependencies {
             "org.aeonbits.owner:owner:1.0.12")
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 
+    mobileTestImplementation(
+            "org.aspectj:aspectjweaver:$aspectjWeaverVersion",
+            "com.codeborne:selenide:$selenideVersion",
+            "io.qameta.allure:allure-selenide:$allureAdaptersVersion",
+            "io.qameta.allure:allure-junit5:$allureAdaptersVersion",
+            "io.appium:java-client:$appiumVersion",
+            "io.rest-assured:rest-assured:$restAssuredVersion",
+            "org.junit.jupiter:junit-jupiter:$junitVersion",
+            "org.aeonbits.owner:owner:$ownerVersion",
+            "org.slf4j:slf4j-simple:$slf4jVersion"
+    )
+    mobileTestRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
     constraints {
         ("org.seleniumhq.selenium:selenium-java:4.45.0")
         ("org.seleniumhq.selenium:selenium-chrome-driver:4.45.0")
     }
 }
 
-
 tasks.withType(Test) {
     useJUnitPlatform()
     systemProperties(System.getProperties())
-    systemProperty("junit.jupiter.extensions.autodetection.enabled", "true")
-    ignoreFailures = true
 
     testLogging {
         lifecycle {
-            events  = ["started", "skipped", "failed", "standard_error", "standard_out"]
-            exceptionFormat = "short"
+            events "started", "skipped", "failed", "standard_error", "standard_out"
+            exceptionFormat = "full"
         }
     }
+}
+
+tasks.register('mobileTest', Test) {
+    description = 'Runs mobile tests (Appium). Use -DdeviceHost=browserstack|emulation|real'
+    group = 'verification'
+    testClassesDirs = sourceSets.mobileTest.output.classesDirs
+    classpath = sourceSets.mobileTest.runtimeClasspath
+    def weaver = configurations.mobileTestRuntimeClasspath.find { it.name.startsWith('aspectjweaver') }
+    jvmArgs "-javaagent:$weaver"
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
 }
