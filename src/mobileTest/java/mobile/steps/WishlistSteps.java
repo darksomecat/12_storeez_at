@@ -9,7 +9,7 @@ import static mobile.locators.TwelveStoreezLocators.EMPTY_WISHLIST_TITLE;
 import static mobile.locators.TwelveStoreezLocators.GO_TO_CATALOG_BUTTON;
 import static mobile.locators.TwelveStoreezLocators.PRODUCT_WISHLIST_BUTTON;
 import static mobile.locators.TwelveStoreezLocators.WISHLIST_DELETE_BUTTON;
-import static mobile.locators.TwelveStoreezLocators.WISHLIST_TAB;
+import static mobile.locators.TwelveStoreezLocators.WISHLIST_TAB_NATIVE;
 import static mobile.locators.TwelveStoreezLocators.textContains;
 
 public class WishlistSteps {
@@ -22,7 +22,8 @@ public class WishlistSteps {
 
     @Step("Открыть список избранного через нижнюю навигацию")
     public WishlistSteps openWishlistFromBottomNavigation() {
-        $(WISHLIST_TAB).shouldBe(visible).click();
+        OnboardingSteps.dismissNotificationsDialogIfShown();
+        $(WISHLIST_TAB_NATIVE).shouldBe(visible).click();
         return this;
     }
 

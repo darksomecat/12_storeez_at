@@ -8,12 +8,13 @@ import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$$;
 import static mobile.locators.TwelveStoreezLocators.ADDED_TO_CART_MESSAGE;
 import static mobile.locators.TwelveStoreezLocators.ADD_TO_CART_BUTTON;
-import static mobile.locators.TwelveStoreezLocators.CART_TAB;
+import static mobile.locators.TwelveStoreezLocators.CART_TAB_NATIVE;
 import static mobile.locators.TwelveStoreezLocators.CLEAR_CART_BUTTON;
 import static mobile.locators.TwelveStoreezLocators.CONFIRM_CLEAR_CART_BUTTON;
 import static mobile.locators.TwelveStoreezLocators.EMPTY_CART_BUTTON_CONTROL;
 import static mobile.locators.TwelveStoreezLocators.EMPTY_CART_TITLE;
 import static mobile.locators.TwelveStoreezLocators.GO_TO_CART_BUTTON;
+import static mobile.locators.TwelveStoreezLocators.ORDER_SUMMARY_LABEL;
 import static mobile.locators.TwelveStoreezLocators.GO_TO_CATALOG_BUTTON;
 import static mobile.locators.TwelveStoreezLocators.SIZE_CHIPS;
 import static mobile.locators.TwelveStoreezLocators.textContains;
@@ -39,6 +40,7 @@ public class CartSteps {
 
     @Step("Очистить корзину с подтверждением")
     public CartSteps clearCart() {
+        $(ORDER_SUMMARY_LABEL).shouldBe(visible);
         $(CLEAR_CART_BUTTON).shouldBe(visible).click();
         $(CONFIRM_CLEAR_CART_BUTTON).shouldBe(visible).click();
         return this;
@@ -46,7 +48,8 @@ public class CartSteps {
 
     @Step("Открыть корзину через нижнюю навигацию")
     public CartSteps openCartFromBottomNavigation() {
-        $(CART_TAB).shouldBe(visible).click();
+        OnboardingSteps.dismissNotificationsDialogIfShown();
+        $(CART_TAB_NATIVE).shouldBe(visible).click();
         return this;
     }
 

@@ -5,7 +5,6 @@ import mobile.config.Config;
 import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.MutableCapabilities;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.remote.RemoteWebDriver;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -28,7 +27,7 @@ public class BrowserstackIosDriver implements WebDriverProvider {
         caps.setCapability("name", Config.browserStack.iosSessionName());
 
         try {
-            return new RemoteWebDriver(
+            return new SanitizingRemoteWebDriver(
                     new URL(Config.browserStack.hubUrl()), caps);
         } catch (MalformedURLException e) {
             throw new RuntimeException(e);

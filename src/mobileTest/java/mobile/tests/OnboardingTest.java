@@ -19,7 +19,7 @@ public class OnboardingTest extends TestBase {
     void onboardingWithoutAuthToMainScreenTest() {
         onboardingSteps.checkNotificationPrimerScreen()
                 .continueFromNotificationPrimer()
-                .denyNotifications()
+                .allowNotifications()
                 .checkTrackingScreen()
                 .continueFromTracking()
                 .checkAuthScreen()
@@ -34,7 +34,7 @@ public class OnboardingTest extends TestBase {
     void onboardingProceedToLoginScreenTest() {
         onboardingSteps.checkNotificationPrimerScreen()
                 .continueFromNotificationPrimer()
-                .denyNotifications()
+                .allowNotifications()
                 .checkTrackingScreen()
                 .continueFromTracking()
                 .checkAuthScreen()

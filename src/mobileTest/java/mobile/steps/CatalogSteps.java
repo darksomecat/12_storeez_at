@@ -15,6 +15,7 @@ public class CatalogSteps {
 
     @Step("Открыть каталог через нижнюю навигацию")
     public CatalogSteps openCatalog() {
+        OnboardingSteps.dismissNotificationsDialogIfShown();
         $(CATALOG_TAB_NATIVE).shouldBe(visible).click();
         return this;
     }

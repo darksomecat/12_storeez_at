@@ -53,6 +53,7 @@ dependencies {
             "org.aspectj:aspectjweaver:$aspectjWeaverVersion",
             "com.codeborne:selenide:$selenideVersion",
             "io.qameta.allure:allure-selenide:$allureAdaptersVersion",
+            "io.qameta.allure:allure-junit5:$allureAdaptersVersion",
             "io.appium:java-client:$appiumVersion",
             "io.rest-assured:rest-assured:$restAssuredVersion",
             "org.junit.jupiter:junit-jupiter:$junitVersion",
@@ -74,7 +75,7 @@ tasks.withType(Test) {
     testLogging {
         lifecycle {
             events "started", "skipped", "failed", "standard_error", "standard_out"
-            exceptionFormat = "short"
+            exceptionFormat = "full"
         }
     }
 }

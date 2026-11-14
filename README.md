@@ -1,5 +1,5 @@
-<h1 align="center">Проект по автоматизации тестирования сайта</h1>
-<h2 align="center"><a href="https://12storeez.com">12STOREEZ</a></h2>
+<h1 align="center">Проект по автоматизации тестирования</h1>
+<h2 align="center">интернет-магазина <a href="https://12storeez.com">12STOREEZ</a> и Android-приложения</h2>
 
 <p align="center">
   <a href="https://12storeez.com/" title="12 STOREEZ — официальный сайт">
@@ -18,6 +18,7 @@ ____
 * <a href="#tools">Технологии и инструменты</a>
 * <a href="#cases">Тест-план автоматизированных тест-кейсов</a>
 * <a href="#cases">Тест-план ручных тест-кейсов (ТестОпс)</a>
+* <a href="#mobile">Мобильное приложение</a>
 * <a href="#console">Запуск тестов из терминала</a>
 * <a href="#jenkins">Сборка в Jenkins</a>
 * <a href="#allure">Allure-отчёт</a>
@@ -37,6 +38,9 @@ ____
   <a href="https://junit.org/junit5/"><img src="images/logo/JUnit5.svg" width="50" height="50" title="JUnit 5 — фреймворк запуска тестов" alt="JUnit 5"/></a>
   <a href="https://selenide.org/"><img src="images/logo/Selenide.svg" width="50" height="50" title="Selenide — UI-фреймворк поверх Selenium" alt="Selenide"/></a>
   <a href="https://aerokube.com/selenoid/"><img src="images/logo/Selenoid.svg" width="50" height="50" title="Selenoid — удалённый запуск браузеров в Docker" alt="Selenoid"/></a>
+  <a href="https://appium.io/"><img src="images/logo/appium.png" width="50" height="50" title="Appium — автоматизация мобильных приложений" alt="Appium"/></a>
+  <a href="https://developer.android.com/studio"><img src="images/logo/androidstudio.svg" width="50" height="50" title="Android Studio — эмулятор и SDK" alt="Android Studio"/></a>
+  <a href="https://www.browserstack.com/"><img src="images/logo/browserstack.svg" width="50" height="50" title="BrowserStack — облачная ферма устройств" alt="BrowserStack"/></a>
   <a href="https://github.com/allure-framework/allure2"><img src="images/logo/Allure_Report.svg" width="50" height="50" title="Allure Report — отчёты по прогонам" alt="Allure Report"/></a>
   <a href="https://qameta.io/"><img src="images/logo/AllureTestOps.svg" width="50" height="50" title="Allure ТестОпс — хранение и аналитика тест-кейсов" alt="Allure ТестОпс"/></a>
   <a href="https://www.jenkins.io/"><img src="images/logo/Jenkins.svg" width="50" height="50" title="Jenkins — CI/CD и удалённый запуск тестов" alt="Jenkins"/></a>
@@ -48,6 +52,7 @@ ____
 - Автотесты написаны на **Java** с использованием **Selenide** и **JUnit 5**.
 - Сборка проекта — **Gradle**.
 - Удалённый запуск браузеров — **Selenoid** (VNC + video).
+- Мобильные автотесты — **Appium** (UIAutomator2): локально на эмуляторе/девайсе и в облаке **BrowserStack** (видео и логи сессий прикладываются к отчёту).
 - CI — **Jenkins** с формированием **Allure Report**.
 - Результаты и тест-кейсы — в **Allure ТестОпс**, интеграция с **Jira**.
 - Уведомления о прогоне — в **Telegram** через бота.
@@ -57,7 +62,8 @@ ____
 * скриншот на последнем шаге;
 * Page Source;
 * логи браузерной консоли;
-* видео выполнения теста (Selenoid).
+* видео выполнения теста (Selenoid);
+* видео и логи мобильной сессии (BrowserStack).
 
 ____
 
@@ -126,6 +132,23 @@ clean
 | `browserSize` | Размер окна |
 | `baseUrl` | Базовый URL приложения |
 | `headless` | Headless-режим |
+
+____
+
+<a id="mobile"></a>
+## <img alt="Android" height="25" src="images/logo/android.svg" width="25"/> Мобильное приложение
+
+Автотесты Android-приложения **12 STOREEZ** (версия 1.60.0): онбординг первого запуска, каталог, корзина, список избранного. Запуск — локально через Appium (эмулятор/девайс) или удалённо в облаке **BrowserStack** (режим по умолчанию).
+
+<p align="center">
+  <img title="12 STOREEZ — каталог" src="images/screenshots/mobile/catalog.png" alt="Каталог" width="200"/>
+  <img title="12 STOREEZ — карточка товара" src="images/screenshots/mobile/product_card.png" alt="Карточка товара" width="200"/>
+  <img title="12 STOREEZ — корзина" src="images/screenshots/mobile/cart.png" alt="Корзина" width="200"/>
+  <img title="12 STOREEZ — пустой список избранного" src="images/screenshots/mobile/wishlist_empty.png" alt="Список избранного" width="200"/>
+</p>
+
+📱 Подробная документация по мобильному направлению — на отдельной странице: **[MOBILE.md](MOBILE.md)**
+(технологии, тест-кейсы, запуск из терминала, Jenkins, Allure-отчёт, особенности реализации).
 
 ____
 

@@ -48,8 +48,12 @@ public final class TwelveStoreezLocators {
     public static final By CONTINUE_BUTTON = text("Продолжить");
     public static final By AUTHORIZE_BUTTON = text("Авторизоваться");
     public static final By NOT_NOW_BUTTON = textWithSpaces("Не сейчас");
-    public static final By PERMISSION_DENY_BUTTON =
-            AppiumBy.id("com.android.permissioncontroller:id/permission_deny_button");
+    public static final By PERMISSION_ALLOW_BUTTON =
+            AppiumBy.id("com.android.permissioncontroller:id/permission_allow_button");
+    public static final By NOTIFICATIONS_SHEET_SCRIM = AppiumBy.id("com.twelvestoreez:id/touch_outside");
+    public static final By NOTIFICATIONS_BANNER_TITLE = AppiumBy.id("com.twelvestoreez:id/textViewTitle");
+    public static final By NOTIFICATIONS_BANNER_ENABLE = AppiumBy.id("com.twelvestoreez:id/buttonActionWithoutImageContent");
+    public static final By NOTIFICATIONS_BANNER_CLOSE = AppiumBy.id("com.twelvestoreez:id/imageViewClose");
     public static final By STARTUP_RETRY_BUTTON = textMatches("(?i)\\QПовторить\\E\\s+\\Qпопытку\\E");
     public static final By LOGIN_TITLE = textWithSpaces("Войти в профиль 12 STOREEZ");
     public static final By LOGIN_NEXT_BUTTON = text("Далее");
@@ -57,10 +61,12 @@ public final class TwelveStoreezLocators {
     public static final By LOGIN_LEGAL_TEXT = textWithSpaces(
             "Нажимая кнопку «Далее» я принимаю условия политики конфиденциальности и пользовательского соглашения");
     public static final By CATALOG_TAB = text("КАТАЛОГ");
-    public static final By WISHLIST_TAB = text("ВИШЛИСТ");
-    public static final By CART_TAB = text("КОРЗИНА");
     public static final By CATALOG_TAB_NATIVE = androidUIAutomator(
             "new UiSelector().resourceId(\"com.twelvestoreez:id/textBottomMenuItem\").text(\"КАТАЛОГ\")");
+    public static final By WISHLIST_TAB_NATIVE = androidUIAutomator(
+            "new UiSelector().resourceId(\"com.twelvestoreez:id/textBottomMenuItem\").text(\"ВИШЛИСТ\")");
+    public static final By CART_TAB_NATIVE = androidUIAutomator(
+            "new UiSelector().resourceId(\"com.twelvestoreez:id/textBottomMenuItem\").text(\"КОРЗИНА\")");
     public static final By NOVELTIES_SECTION = text("Новинки");
     public static final By PRODUCT_LIST = AppiumBy.id("com.twelvestoreez:id/recyclerViewProductList");
     public static final By FIRST_PRODUCT_CARD = androidUIAutomator(
@@ -69,14 +75,16 @@ public final class TwelveStoreezLocators {
             "(//*[@resource-id='com.twelvestoreez:id/constraintLayoutProduct'])[1]"
                     + "//*[@resource-id='com.twelvestoreez:id/textViewTitle']");
     public static final By ADD_TO_CART_BUTTON = textWithSpaces("Добавить в корзину");
-    public static final By PRODUCT_WISHLIST_BUTTON = androidUIAutomator(
-            "new UiSelector().className(\"android.widget.Button\").instance(4)");
+    public static final By PRODUCT_WISHLIST_BUTTON = org.openqa.selenium.By.xpath(
+            "//android.widget.TextView[contains(@text,'Добавить')]"
+                    + "/parent::*/parent::*/parent::*/android.widget.Button[1]");
     public static final By ADDED_TO_CART_MESSAGE = textWithSpaces("Добавлено в корзину");
     public static final By GO_TO_CART_BUTTON = textWithSpaces("Перейти в корзину");
     public static final By SIZE_CHIPS =
             androidUIAutomator("new UiSelector().className(\"android.widget.TextView\")"
                     + ".textMatches(\"XS|S|M|L|XL|XXL|[0-9]{2}\").enabled(true)");
     public static final By CLEAR_CART_BUTTON = text("Очистить");
+    public static final By ORDER_SUMMARY_LABEL = textWithSpaces("Сумма заказа:");
     public static final By CONFIRM_CLEAR_CART_BUTTON = textMatches("Очистить\\s+корзину");
     public static final By EMPTY_CART_TITLE = textWithSpaces("Корзина пока пуста");
     public static final By GO_TO_CATALOG_BUTTON = textWithSpaces("Перейти в каталог");
