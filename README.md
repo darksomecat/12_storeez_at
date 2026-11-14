@@ -1,5 +1,5 @@
 <h1 align="center">Проект по автоматизации тестирования</h1>
-<h2 align="center">интернет-магазина <a href="https://12storeez.com">12STOREEZ</a> и Android-приложения</h2>
+<h2 align="center">интернет-магазина и Android-приложения <a href="https://12storeez.com">12STOREEZ</a> </h2>
 
 <p align="center">
   <a href="https://12storeez.com/" title="12 STOREEZ — официальный сайт">
@@ -16,9 +16,10 @@ ____
 ## Содержание
 
 * <a href="#tools">Технологии и инструменты</a>
+* <a href="#mobile">Мобильное приложение</a>
 * <a href="#cases">Тест-план автоматизированных тест-кейсов</a>
 * <a href="#cases">Тест-план ручных тест-кейсов (ТестОпс)</a>
-* <a href="#mobile">Мобильное приложение</a>
+* <a href="#structure">Структура проекта</a>
 * <a href="#console">Запуск тестов из терминала</a>
 * <a href="#jenkins">Сборка в Jenkins</a>
 * <a href="#allure">Allure-отчёт</a>
@@ -52,7 +53,7 @@ ____
 - Автотесты написаны на **Java** с использованием **Selenide** и **JUnit 5**.
 - Сборка проекта — **Gradle**.
 - Удалённый запуск браузеров — **Selenoid** (VNC + video).
-- Мобильные автотесты — **Appium** (UIAutomator2): локально на эмуляторе/девайсе и в облаке **BrowserStack** (видео и логи сессий прикладываются к отчёту).
+- Мобильные автотесты — **Appium** (UIAutomator2): локально на эмуляторе/девайсе и в облаке **BrowserStack**.
 - CI — **Jenkins** с формированием **Allure Report**.
 - Результаты и тест-кейсы — в **Allure ТестОпс**, интеграция с **Jira**.
 - Уведомления о прогоне — в **Telegram** через бота.
@@ -67,10 +68,23 @@ ____
 
 ____
 
+<a id="mobile"></a>
+## <img alt="Android" height="25" src="images/logo/android.svg" width="25"/> Мобильное приложение
+
+📱Автотесты Android-приложения **12 STOREEZ** (версия 1.60.0): технологии, тест-кейсы, запуск, особенности реализации и другую подробную информацию по мобильному приложению можно найти на странице: **[MOBILE.md](MOBILE.md)**.
+<p align="center">
+  <img title="12 STOREEZ — карточка товара" src="images/screenshots/mobile/product_card.png" alt="Карточка товара" width="200"/>
+  <img title="12 STOREEZ — корзина" src="images/screenshots/mobile/cart.png" alt="Корзина" width="200"/>
+</p>
+
+
+
+____
+
 <a id="cases"></a>
 ## Тест-план автоматизированных тест-кейсов
  
-**Приложение:**
+**Страница установки приложения:**
 - Переход на экран «Установите приложение» и проверка формы экрана;
 - Кнопка «Загрузите в App Store» открывает страницу приложения в App Store;
 - Кнопка «Доступно в Google Play» открывает страницу приложения в Google Play.
@@ -94,11 +108,43 @@ ____
 - Добавление товара в корзину из "Списка избранного";
 - Закрытие поп-апа выбора размера по крестику в "Списке избранного".
 
+**Мобильное приложение (Android, подробно — [MOBILE.md](MOBILE.md)):**
+- Онбординг первого запуска: экраны онбординга до главного экрана по кнопке «Не сейчас»;
+- Онбординг первого запуска: переход к экрану авторизации по кнопке «Авторизоваться»;
+- Каталог: открытие первого товара раздела «Новинки» через нижнюю навигацию;
+- Корзина: добавление товара (выбор размера) и проверка товара в корзине;
+- Корзина: очистка корзины с подтверждением — корзина становится пустой;
+- Корзина: пустая корзина после запуска (заголовок «Корзина пока пуста» и кнопка «Перейти в каталог»);
+- Список избранного: добавление товара с карточки товара и проверка товара в списке;
+- Список избранного: удаление товара из списка по кнопке удаления.
+
 ## Тест-план ручных тест-кейсов (ТестОпс)
 - "Оплатить заказ" (СБП), корректно заполнены все поля на форме;
 - Валидация незаполненных полей по кнопке "Оплатить заказ";
 - Валидация корректности заполнения полей;
 - Отображение формы оплаты товара - пустая корзина.
+____
+
+<a id="structure"></a>
+## Структура проекта
+
+```
+src/test/java/
+├── config/       # Owner-конфиги: WebDriverConfig, AuthConfig, ConfigReader, ProjectConfiguration
+├── helpers/      # Attach — вложения Allure (скриншот, page source, логи консоли, видео)
+├── pages/        # PageObject: MainPage, SearchPage, ProductPage, CartPage, WishlistPage, AppsPage
+├── steps/        # PurchaseSteps — сценарии покупки
+├── testdata/     # TestData — тестовые данные и константы
+├── tests/        # TestBase + SearchTests, CartTests, WishlistTests, AppsPageTests
+└── utils/        # SearchQueryGenerator — генерация поисковых запросов
+
+src/test/resources/
+├── auth.properties      # креды для удалённого запуска
+├── local.properties     # локальный запуск (браузер, headless)
+└── selenoid.properties  # удалённый запуск через Selenoid
+
+src/main/java/io/qameta/allure/   # кастомные аннотации @Layer, @JiraIssue(s) — общие с mobile
+```
 ____
 
 <a id="console"></a>
@@ -135,23 +181,6 @@ clean
 
 ____
 
-<a id="mobile"></a>
-## <img alt="Android" height="25" src="images/logo/android.svg" width="25"/> Мобильное приложение
-
-Автотесты Android-приложения **12 STOREEZ** (версия 1.60.0): онбординг первого запуска, каталог, корзина, список избранного. Запуск — локально через Appium (эмулятор/девайс) или удалённо в облаке **BrowserStack** (режим по умолчанию).
-
-<p align="center">
-  <img title="12 STOREEZ — каталог" src="images/screenshots/mobile/catalog.png" alt="Каталог" width="200"/>
-  <img title="12 STOREEZ — карточка товара" src="images/screenshots/mobile/product_card.png" alt="Карточка товара" width="200"/>
-  <img title="12 STOREEZ — корзина" src="images/screenshots/mobile/cart.png" alt="Корзина" width="200"/>
-  <img title="12 STOREEZ — пустой список избранного" src="images/screenshots/mobile/wishlist_empty.png" alt="Список избранного" width="200"/>
-</p>
-
-📱 Подробная документация по мобильному направлению — на отдельной странице: **[MOBILE.md](MOBILE.md)**
-(технологии, тест-кейсы, запуск из терминала, Jenkins, Allure-отчёт, особенности реализации).
-
-____
-
 <a id="jenkins"></a>
 ## <img alt="Jenkins" height="25" src="images/logo/Jenkins.svg" width="25"/> <a href="https://jenkins.qa.guru/job/ukolovaA-12STOREEZ/">Сборка в Jenkins</a>
 
@@ -181,7 +210,7 @@ ____
 <a id="allure-testops"></a>
 ## <img alt="Allure ТестОпс" height="25" src="images/logo/AllureTestOps.svg" width="25"/> <a href="https://allure.qa.guru/project/5401/dashboards/5700">Интеграция с Allure ТестОпс</a>
 
-Выполнена интеграция сборки Jenkins с **Allure ТестОпс**.  
+Выполнена интеграция сборки Jenkins с **Allure ТестОпс**. Каждый тест размечен аннотациями `@Story`, `@JiraIssues`, `@Tags`, `@Severity` и `@DisplayName`.  
 
 ### Запуски
 
