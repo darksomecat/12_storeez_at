@@ -40,7 +40,9 @@ public class ProductPage {
     public ProductPage selectSize(String excludeText) {
         sizeSelector.shouldBe(visible).click();
         sizeList.shouldBe(visible);
-        sizeItems.excludeWith(text(excludeText)).first().shouldBe(visible).click();
+        sizeItems.excludeWith(text(excludeText))
+                .excludeWith(text("Последний"))
+                .first().shouldBe(visible).click();
         return this;
     }
 

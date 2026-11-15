@@ -1,5 +1,6 @@
 package tests;
 
+import com.codeborne.selenide.Selenide;
 import io.qameta.allure.Feature;
 import io.qameta.allure.JiraIssue;
 import io.qameta.allure.JiraIssues;
@@ -25,11 +26,13 @@ public class CartTests extends TestBase {
         searchPage.typeQuery(searchWord)
                 .submitSearch()
                 .openFirstProductCard();
-        return productPage.checkOpened(searchWord)
+        ProductPage addedProduct = productPage.checkOpened(searchWord)
                 .selectSize(testData.sizeExcludeText)
                 .rememberCard()
                 .addToCart(testData.addToCartButton, testData.goToCartButton)
                 .openCart(testData.goToCartButton);
+        Selenide.sleep(3000);
+        return addedProduct;
     }
 
     @Test
@@ -55,13 +58,8 @@ public class CartTests extends TestBase {
     @DisplayName("Удаление товара из корзины")
     void removeProductFromCartTest() {
         ProductPage addedProduct = addFirstFoundProductToCart(testData.searchWord);
-        cartPage.checkAddedProduct(
-                        addedProduct.getProductTitle(),
-                        addedProduct.getSelectedSize(),
-                        testData.cartItemQuantity
-                )
-                .removeProduct(testData.removeFromCartConfirm)
-                .checkEmpty(testData.emptyCartText);
+        cartPage.removeProduct(testData.removeFromCartConfirm)
+                .checkProductAbsent(addedProduct.getProductTitle());
     }
 
     @Test

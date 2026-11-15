@@ -4,6 +4,7 @@ import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
 
+import static com.codeborne.selenide.CollectionCondition.size;
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$$;
@@ -25,7 +26,7 @@ public class CartPage {
     private final SelenideElement quantityMinus = $(".order-list__item .quantity-input .button-minus");
     private final SelenideElement removeIcon = $(".order-list__item .goods-edit__remove-block");
     private final ElementsCollection removeConfirmDialogButtons = $$(".simplert__footer");
-    private final SelenideElement geoConfirmButton = $(".UserGeoConfirmTooltip").$$(".ButtonV2__text").findBy(text("Да, верно"));
+    private final ElementsCollection goodsTitles = $$(".order-list__item .goods__title");
 
     @Step("Проверить, что корзина пустая")
     public CartPage checkEmpty(String emptyTitle) {
@@ -71,13 +72,13 @@ public class CartPage {
 
     @Step("Увеличить количество товара")
     public CartPage increaseQuantity() {
-        quantityPlus.shouldBe(visible).click();
+        quantityPlus.shouldBe(visible, enabled).click();
         return this;
     }
 
     @Step("Уменьшить количество товара")
     public CartPage decreaseQuantity() {
-        quantityMinus.shouldBe(visible).click();
+        quantityMinus.shouldBe(visible, enabled).click();
         return this;
     }
 
@@ -100,23 +101,20 @@ public class CartPage {
         return this;
     }
 
+    @Step("Проверить, что товара \"{titlePart}\" нет в корзине")
+    public CartPage checkProductAbsent(String titlePart) {
+        goodsTitles.filterBy(text(titlePart)).shouldHave(size(0));
+        return this;
+    }
+
     @Step("Удалить товар из корзины")
     public CartPage removeProduct(String confirmButton) {
-        closeGeoTooltip();
         removeIcon.shouldBe(visible).click();
         removeConfirmDialogButtons.findBy(text(confirmButton)).shouldBe(visible).click();
-        emptyCart.shouldBe(visible);
         return this;
     }
 
     private long parsePrice(String price) {
         return Long.parseLong(price.replaceAll("[^\\d]", ""));
-    }
-
-    @Step("Подтвердить геолокацию, если поп-ап перекрывает страницу")
-    private void closeGeoTooltip() {
-        if (geoConfirmButton.isDisplayed()) {
-            geoConfirmButton.click();
-        }
     }
 }

@@ -7,10 +7,10 @@ public class SearchQueryGenerator {
     private static final Faker faker = new Faker();
 
     private static final String[] SEARCH_WORDS = {
-            "Пальто",
-            "Джинсы",
-            "Ботинки",
-            "Туфли"
+          "Водолазка",
+          "Джинсы",
+         "Ботинки",
+              "Туфли"
     };
 
     public static String randomSearchWord() {
