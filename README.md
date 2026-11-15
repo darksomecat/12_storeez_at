@@ -207,7 +207,7 @@ ____
 ____
 
 <a id="allure-testops"></a>
-## <img alt="Allure ТестОпс" height="25" src="images/logo/AllureTestOps.svg" width="25"/> <a href="https://jenkins.qa.guru/job/aukolova-12STOREEZ/23/allure/">Интеграция с Allure ТестОпс</a>
+## <img alt="Allure ТестОпс" height="25" src="images/logo/AllureTestOps.svg" width="25"/> <a href="https://allure.qa.guru/project/5401/dashboards/5700">Интеграция с Allure ТестОпс</a>
 
 Выполнена интеграция сборки Jenkins с **Allure ТестОпс**. Каждый тест размечен аннотациями `@Story`, `@JiraIssues`, `@Tags`, `@Severity` и `@DisplayName`.  
 
