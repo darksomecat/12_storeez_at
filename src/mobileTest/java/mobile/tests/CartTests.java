@@ -8,8 +8,6 @@ import io.qameta.allure.Owner;
 import io.qameta.allure.Severity;
 import io.qameta.allure.SeverityLevel;
 import io.qameta.allure.Story;
-import mobile.steps.CartSteps;
-import mobile.steps.CatalogSteps;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
@@ -21,12 +19,9 @@ import org.junit.jupiter.api.Test;
 @Feature("Корзина")
 public class CartTests extends TestBase {
 
-    private final CatalogSteps catalogSteps = new CatalogSteps();
-    private final CartSteps cartSteps = new CartSteps();
-
     @BeforeEach
     void skipOnboarding() {
-        onboardingSteps.completeOnboarding();
+        completeOnboarding();
     }
 
     @Test
@@ -36,11 +31,18 @@ public class CartTests extends TestBase {
     @Severity(SeverityLevel.BLOCKER)
     @DisplayName("Добавление товара в корзину и проверка товара в корзине")
     void addProductToCartTest() {
-        catalogSteps.openCatalog();
-        String product = catalogSteps.openFirstNewArrivalProduct();
-        cartSteps.addToCartWithAnySize();
-        cartSteps.openCartFromConfirmation()
-                .checkProductInCart(product);
+        bottomNavigation.openCatalog();
+        catalogScreen.openNovelties();
+        catalogScreen.verifyProductListLoaded();
+        String product = catalogScreen.getFirstProductTitle();
+        catalogScreen.openFirstProduct();
+        productScreen.verifyProductScreenOpen();
+        productScreen.addToCart();
+        productScreen.selectFirstAvailableSize();
+        productScreen.verifyAddedToCart();
+        productScreen.goToCart();
+        cartScreen.verifyCartScreenOpen();
+        cartScreen.verifyProductInCart(product);
     }
 
     @Test
@@ -50,12 +52,20 @@ public class CartTests extends TestBase {
     @Severity(SeverityLevel.CRITICAL)
     @DisplayName("Удаление товара из корзины")
     void clearCartTest() {
-        catalogSteps.openCatalog();
-        catalogSteps.openFirstNewArrivalProduct();
-        cartSteps.addToCartWithAnySize();
-        cartSteps.openCartFromConfirmation()
-                .clearCart()
-                .checkCartIsEmpty("Корзина пока пуста", "Перейти в каталог");
+        bottomNavigation.openCatalog();
+        catalogScreen.openNovelties();
+        catalogScreen.verifyProductListLoaded();
+        catalogScreen.getFirstProductTitle();
+        catalogScreen.openFirstProduct();
+        productScreen.verifyProductScreenOpen();
+        productScreen.addToCart();
+        productScreen.selectFirstAvailableSize();
+        productScreen.verifyAddedToCart();
+        productScreen.goToCart();
+        cartScreen.verifyCartScreenOpen();
+        cartScreen.startClearing();
+        cartScreen.confirmClearCart();
+        cartScreen.verifyCartIsEmpty();
     }
 
     @Test
@@ -65,7 +75,7 @@ public class CartTests extends TestBase {
     @Severity(SeverityLevel.MINOR)
     @DisplayName("Пустая корзина")
     void emptyCartTest() {
-        cartSteps.openCartFromBottomNavigation()
-                .checkCartIsEmpty("Корзина пока пуста", "Перейти в каталог");
+        bottomNavigation.openCart();
+        cartScreen.verifyCartIsEmpty();
     }
 }
