@@ -85,8 +85,7 @@ src/mobileTest
 │   ├── config        ← конфиги стендов на Owner (Run, BrowserStack, Emulation, RealDevice)
 │   ├── drivers       ← DriverFactory, LocalDriver, EmulationDriver, RealDeviceDriver, BrowserstackAndroidDrivers, SanitizingRemoteWebDriver
 │   ├── helpers       ← вложения Allure (Attach), клиент API BrowserStack
-│   ├── locators      ← TwelveStoreezLocators (UiSelector/XPath)
-│   ├── steps         ← OnboardingSteps, CatalogSteps, CartSteps, WishlistSteps
+│   ├── screens       ← OnboardingScreen, LoginScreen, CatalogScreen, ProductScreen, CartScreen, WishlistScreen, BottomNavigation, Selectors
 │   └── tests         ← TestBase, OnboardingTest, CartTests, WishlistTests
 └── resources         ← emulation.properties, real.properties, config.properties
 ```
@@ -147,7 +146,8 @@ ____
 ____
 
 <a id="allure"></a>
-## <img alt="Allure Report" height="25" src="images/logo/Allure_Report.svg" width="25"/> Allure-отчёт
+
+## <img alt="Allure Report" height="25" src="images/logo/Allure_Report.svg" width="25"/> <a href="https://jenkins.qa.guru/job/aukolova-12STOREEZ-Mobile/10/allure/">Allure-отчёт</a>
 ### Overview
 
 <p align="center">

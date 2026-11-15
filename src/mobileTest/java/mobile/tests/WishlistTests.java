@@ -8,8 +8,6 @@ import io.qameta.allure.Owner;
 import io.qameta.allure.Severity;
 import io.qameta.allure.SeverityLevel;
 import io.qameta.allure.Story;
-import mobile.steps.CatalogSteps;
-import mobile.steps.WishlistSteps;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
@@ -21,12 +19,9 @@ import org.junit.jupiter.api.Test;
 @Feature("Wishlist")
 public class WishlistTests extends TestBase {
 
-    private final CatalogSteps catalogSteps = new CatalogSteps();
-    private final WishlistSteps wishlistSteps = new WishlistSteps();
-
     @BeforeEach
     void skipOnboarding() {
-        onboardingSteps.completeOnboarding();
+        completeOnboarding();
     }
 
     @Test
@@ -36,12 +31,16 @@ public class WishlistTests extends TestBase {
     @Severity(SeverityLevel.CRITICAL)
     @DisplayName("Добавление и проверка товара в вкладке \"Список избранного\"")
     void addProductToWishlistTest() {
-        catalogSteps.openCatalog();
-        String product = catalogSteps.openFirstNewArrivalProduct();
-        wishlistSteps.addToWishlistFromProductCard()
-                .pressBack()
-                .openWishlistFromBottomNavigation()
-                .checkProductInWishlist(product);
+        bottomNavigation.openCatalog();
+        catalogScreen.openNovelties();
+        catalogScreen.verifyProductListLoaded();
+        String product = catalogScreen.getFirstProductTitle();
+        catalogScreen.openFirstProduct();
+        productScreen.verifyProductScreenOpen();
+        productScreen.addToWishlist();
+        productScreen.navigateBack();
+        bottomNavigation.openWishlist();
+        wishlistScreen.verifyProductInWishlist(product);
     }
 
     @Test
@@ -51,13 +50,17 @@ public class WishlistTests extends TestBase {
     @Severity(SeverityLevel.NORMAL)
     @DisplayName("Удаление товара из \"Списка избранного\"")
     void removeProductFromWishlistTest() {
-        catalogSteps.openCatalog();
-        String product = catalogSteps.openFirstNewArrivalProduct();
-        wishlistSteps.addToWishlistFromProductCard()
-                .pressBack()
-                .openWishlistFromBottomNavigation()
-                .checkProductInWishlist(product)
-                .removeProductFromWishlist()
-                .checkWishlistIsEmpty("Вишлист пока пуст", "Перейти в каталог");
+        bottomNavigation.openCatalog();
+        catalogScreen.openNovelties();
+        catalogScreen.verifyProductListLoaded();
+        String product = catalogScreen.getFirstProductTitle();
+        catalogScreen.openFirstProduct();
+        productScreen.verifyProductScreenOpen();
+        productScreen.addToWishlist();
+        productScreen.navigateBack();
+        bottomNavigation.openWishlist();
+        wishlistScreen.verifyProductInWishlist(product);
+        wishlistScreen.removeProduct();
+        wishlistScreen.verifyWishlistIsEmpty();
     }
 }

@@ -130,10 +130,9 @@ ____
 
 ```
 src/test/java/
-├── config/       # Owner-конфиги: WebDriverConfig, AuthConfig, ConfigReader, ProjectConfiguration
+├── config/       # Owner-конфиги: WebDriverConfig, AuthConfig, ConfigReader, ProjectConfiguration, Browser
 ├── helpers/      # Attach — вложения Allure (скриншот, page source, логи консоли, видео)
 ├── pages/        # PageObject: MainPage, SearchPage, ProductPage, CartPage, WishlistPage, AppsPage
-├── steps/        # PurchaseSteps — сценарии покупки
 ├── testdata/     # TestData — тестовые данные и константы
 ├── tests/        # TestBase + SearchTests, CartTests, WishlistTests, AppsPageTests
 └── utils/        # SearchQueryGenerator — генерация поисковых запросов
@@ -182,7 +181,7 @@ clean
 ____
 
 <a id="jenkins"></a>
-## <img alt="Jenkins" height="25" src="images/logo/Jenkins.svg" width="25"/> <a href="https://jenkins.qa.guru/job/ukolovaA-12STOREEZ/">Сборка в Jenkins</a>
+## <img alt="Jenkins" height="25" src="images/logo/Jenkins.svg" width="25"/> <a href="https://jenkins.qa.guru/job/aukolova-12STOREEZ/">Сборка в Jenkins</a>
 
 <p align="center">
   <img title="Jenkins — страница сборки проекта" src="images/screenshots/jenkins_build.png" alt="Jenkins build" width="950"/>
@@ -191,7 +190,7 @@ ____
 ____
 
 <a id="allure"></a>
-## <img alt="Allure Report" height="25" src="images/logo/Allure_Report.svg" width="25"/> <a href="https://jenkins.qa.guru/job/ukolovaA-12STOREEZ/8/allure/">Allure-отчёт</a>
+## <img alt="Allure Report" height="25" src="images/logo/Allure_Report.svg" width="25"/> <a href="https://jenkins.qa.guru/job/aukolova-12STOREEZ/24/allure/">Allure-отчёт</a>
 
 ### Overview
 
@@ -208,7 +207,7 @@ ____
 ____
 
 <a id="allure-testops"></a>
-## <img alt="Allure ТестОпс" height="25" src="images/logo/AllureTestOps.svg" width="25"/> <a href="https://allure.qa.guru/project/5401/dashboards/5700">Интеграция с Allure ТестОпс</a>
+## <img alt="Allure ТестОпс" height="25" src="images/logo/AllureTestOps.svg" width="25"/> <a href="https://jenkins.qa.guru/job/aukolova-12STOREEZ/23/allure/">Интеграция с Allure ТестОпс</a>
 
 Выполнена интеграция сборки Jenkins с **Allure ТестОпс**. Каждый тест размечен аннотациями `@Story`, `@JiraIssues`, `@Tags`, `@Severity` и `@DisplayName`.  
 

@@ -13,14 +13,24 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Tags;
 import org.junit.jupiter.api.Test;
 import pages.ProductPage;
-import steps.PurchaseSteps;
 
 @Layer("web")
 @Owner("aukolova")
 @Feature("Корзина")
 public class CartTests extends TestBase {
 
-    PurchaseSteps purchaseSteps = new PurchaseSteps();
+    private ProductPage addFirstFoundProductToCart(String searchWord) {
+        mainPage.openPage()
+                .openSearch();
+        searchPage.typeQuery(searchWord)
+                .submitSearch()
+                .openFirstProductCard();
+        return productPage.checkOpened(searchWord)
+                .selectSize(testData.sizeExcludeText)
+                .rememberCard()
+                .addToCart(testData.addToCartButton, testData.goToCartButton)
+                .openCart(testData.goToCartButton);
+    }
 
     @Test
     @Story("Управление товарами в корзине")
@@ -29,7 +39,7 @@ public class CartTests extends TestBase {
     @Severity(SeverityLevel.BLOCKER)
     @DisplayName("Добавление товара в корзину и проверка товара в корзине")
     void addProductToCartTest() {
-        ProductPage addedProduct = purchaseSteps.addFirstFoundProductToCart(testData.searchWord);
+        ProductPage addedProduct = addFirstFoundProductToCart(testData.searchWord);
         cartPage.checkAddedProduct(
                 addedProduct.getProductTitle(),
                 addedProduct.getSelectedSize(),
@@ -44,7 +54,7 @@ public class CartTests extends TestBase {
     @Severity(SeverityLevel.CRITICAL)
     @DisplayName("Удаление товара из корзины")
     void removeProductFromCartTest() {
-        ProductPage addedProduct = purchaseSteps.addFirstFoundProductToCart(testData.searchWord);
+        ProductPage addedProduct = addFirstFoundProductToCart(testData.searchWord);
         cartPage.checkAddedProduct(
                         addedProduct.getProductTitle(),
                         addedProduct.getSelectedSize(),
@@ -73,7 +83,7 @@ public class CartTests extends TestBase {
     @Severity(SeverityLevel.NORMAL)
     @DisplayName("Смена размера товара в корзине")
     void changeProductSizeInCartTest() {
-        purchaseSteps.addFirstFoundProductToCart(testData.searchWord);
+        addFirstFoundProductToCart(testData.searchWord);
         String sizeBefore = cartPage.getCurrentSize();
         cartPage.selectAnotherSize()
                 .checkSizeChanged(sizeBefore);
@@ -86,7 +96,7 @@ public class CartTests extends TestBase {
     @Severity(SeverityLevel.NORMAL)
     @DisplayName("Увеличение количества товара в корзине: сумма удваивается")
     void increaseProductQuantityInCartTest() {
-        purchaseSteps.addFirstFoundProductToCart(testData.searchWord);
+        addFirstFoundProductToCart(testData.searchWord);
         String priceBefore = cartPage.getCurrentPrice();
         cartPage.increaseQuantity()
                 .checkQuantity("2")
@@ -100,7 +110,7 @@ public class CartTests extends TestBase {
     @Severity(SeverityLevel.NORMAL)
     @DisplayName("Уменьшение количества товара в корзине: сумма возвращается к исходной")
     void decreaseProductQuantityInCartTest() {
-        purchaseSteps.addFirstFoundProductToCart(testData.searchWord);
+        addFirstFoundProductToCart(testData.searchWord);
         String priceBefore = cartPage.getCurrentPrice();
         cartPage.increaseQuantity()
                 .checkQuantity("2")
